@@ -1,0 +1,22 @@
+A dla mnie napisz w .Net taki mini program:
+
+1. odczytywanie pliku CSV (wskazanego przez usera), w pliku będą "produkty",
+
+2. plik CSV rozdzielany ; (średnik)
+
+3. nazwa zmienna ale stała maska, np. BASE_[3 cyfry][data w formacie yyyyMMdd].csv (przykład BASE_123_20250516.csv)
+
+4. csv składa się z 6 kolumn (id (id produktu, nie wierszu, czyli moze w pliku byc 
+kilka takich samych wierszy), nazwa, ilosc, data (w formacie yyyy-MM-dd), nr grupy do jakiej nalezy wiersz (grupy od 1-10), wartość 1szt.)
+
+5. csv zawiera w pierwszym wierszu nazwy kolumn, dopiero poźniej dane
+
+6. twoje zadanie to odczytać plik tak, aby user mogl wybrać grupę i dostać ilość dla danej grupy, 
+datę min i max dla wybranej grupy i wartość wszystkich produktów w danej grupie i wszystkich w całym pliku
+
+------------------------------------
+
+1. wybor grupy przez usera,
+2. zwrot danych do usera z danej grupy
+
+//checkpoint: wypisz wszystkie dane z pliku: User podaje grupe od 1 do 4 i dane są wyświetlane w konsoli 
