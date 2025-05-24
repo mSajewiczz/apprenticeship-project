@@ -5,44 +5,46 @@ namespace apprenticeship_project
     {
         static void Main(string[] args)
         {
-            
-            
-            
-            
             string[] groups = {"111", "882", "232", "484"};
-            
-            // string group = "";
             RetrieveData retrieveData = new RetrieveData();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Write group (111, 882, 232, 484): ");
+            Console.WriteLine("Get entire product (write group 1 - 4): ");
+            
             Console.ResetColor();
             string group = Console.ReadLine();
 
-            bool found = false;
+            switch (group)
+            {
+                case "1":
+                    group = "111";
+                    break;
+                case "2":
+                    group = "882";
+                    break;
+                case "3":
+                    group = "232";
+                    break;
+                case "4":
+                    group = "484";
+                    break;
+                default: 
+                    Console.WriteLine("Unknown group");
+                    break;
+            }
             
-
             for (int i = 0; i < groups.Length; i++)
             {
                 for (int j = 0; j < groups.Length; j++)
                 {
                     if (group == groups[j])
                     {
-                        found = true;
-                        retrieveData.GetData(group);
+                        retrieveData.GetLine(group);
                         break;
                     }
                 }
-                
-                if (!found)
-                {
-                    
-                    Console.WriteLine("Group not found. Try again.");
-                } 
                 break;
             }
         }
-        
-        
     }
 }
