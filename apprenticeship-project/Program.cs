@@ -5,13 +5,22 @@ namespace apprenticeship_project
     {
         static void Main(string[] args)
         {
+            
+            
+            
+            
             string[] groups = {"111", "882", "232", "484"};
             
             // string group = "";
             RetrieveData retrieveData = new RetrieveData();
 
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Write group (111, 882, 232, 484): ");
+            Console.ResetColor();
             string group = Console.ReadLine();
+
+            bool found = false;
+            
 
             for (int i = 0; i < groups.Length; i++)
             {
@@ -19,18 +28,18 @@ namespace apprenticeship_project
                 {
                     if (group == groups[j])
                     {
-                    
+                        found = true;
                         retrieveData.GetData(group);
-                        break;
-                    
-                        //nested loop musui tu byc zeby przeleciec tab caly 
-                    }
-                    else
-                    {
-                        Console.WriteLine("Group not found. Try again.");
                         break;
                     }
                 }
+                
+                if (!found)
+                {
+                    
+                    Console.WriteLine("Group not found. Try again.");
+                } 
+                break;
             }
         }
         

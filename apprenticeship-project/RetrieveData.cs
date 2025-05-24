@@ -14,20 +14,13 @@ public class RetrieveData
             {
                 if (lineCounter != 0)
                 {
-                    // Console.WriteLine(line); //tu cale zdania sa
-
                     for (int i = 0; i < line.Length; i++)
                     {
-                        // Console.WriteLine(line[i]);
-
-                        if (line[i] == ';' && line[i+1] == group[0] && line[i+2] == group[1] && line[i+3] == group[2])
+                        if (line[i] == ';' && line[i + 1] == group[0] && line[i + 2] == group[1] &&
+                            line[i + 3] == group[2])
                         {
-                            Console.WriteLine("ok");
+                            Console.WriteLine(line);
                         }
-                        
-                        
-                        
-                        //tutaj lecisz znakami 
                     }
                 }
                 
