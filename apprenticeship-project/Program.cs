@@ -39,7 +39,7 @@ namespace apprenticeship_project
                 {
                     if (group == groups[j])
                     {
-                        retrieveData.GetLine(group);
+                        retrieveData.prepareData(group);
                         break;
                     }
                 }
