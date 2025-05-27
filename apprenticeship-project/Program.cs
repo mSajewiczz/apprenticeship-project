@@ -9,7 +9,8 @@ namespace apprenticeship_project
             RetrieveData retrieveData = new RetrieveData();
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Get entire product (write group 1 - 4): ");
+            
+            Console.WriteLine("Get product value (write group 1 - 4): ");
             
             Console.ResetColor();
             string group = Console.ReadLine();
