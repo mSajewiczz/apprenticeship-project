@@ -108,10 +108,12 @@ public class RetrieveData
 
     public void Sort(string[] lines, string group, string type)
     {
-        int day, month, year;
+        string year = "0000";
         
         for (int i = 0; i < lines.Length; i++)
         {
+            
+            char[] arr = year.ToCharArray();
             int semiConlonsCounter = 0;
 
             string line = lines[i];
@@ -125,11 +127,14 @@ public class RetrieveData
 
                 if (semiConlonsCounter == 3)
                 {
-                    Console.Write(line[j]);
+                    
+                    arr[j] = line[j+1];
                 }
             }
+            
+            year = new string(arr);
 
-            Console.WriteLine();
+            Console.WriteLine(year);
         }
         
     }
