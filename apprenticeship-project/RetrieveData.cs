@@ -49,13 +49,13 @@ public class RetrieveData
 
         file.Close();
 
-        GetQuantity(lines, group);
+        Sort(lines, group, option);
     }
 
     public void GetQuantity(string[] lines, string group)
     {
         //grupe + tablice lin gdzie sa informacje wszystkie
-        
+
         string[] values = new string[lines.Length];
 
         for (int i = 0; i < lines.Length; i++)
@@ -73,9 +73,63 @@ public class RetrieveData
 
                 if (semiConlonsCounter == 2)
                 {
-                     
+                    Console.Write(line[j]);
                 }
             }
+            Console.WriteLine();
+        }
+        
+    }
+
+    public void GetValue(string[] lines, string group)
+    {
+        for (int i = 0; i < lines.Length; i++)
+        {
+            int semiConlonsCounter = 0;
+
+            string line = lines[i];
+
+            for (int j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiConlonsCounter++;
+                }
+
+                if (semiConlonsCounter == 5)
+                {
+                    Console.Write(line[j]);
+                }
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+    public void Sort(string[] lines, string group, string type)
+    {
+        int day, month, year;
+        
+        for (int i = 0; i < lines.Length; i++)
+        {
+            int semiConlonsCounter = 0;
+
+            string line = lines[i];
+
+            for (int j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiConlonsCounter++;
+                }
+
+                if (semiConlonsCounter == 3)
+                {
+                    Console.Write(line[j]);
+                }
+            }
+
+            Console.WriteLine();
         }
         
     }
