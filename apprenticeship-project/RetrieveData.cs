@@ -48,7 +48,7 @@ public class RetrieveData
 
         int id = 0;
         
-        string value ="";
+        string value = "";
         int semiColonsCount = 0;
         
         for (int i = 0; i < line.Length; i++)
@@ -58,13 +58,40 @@ public class RetrieveData
                 semiColonsCount++;
             }
 
-            if (semiColonsCount == 5)
+            if (semiColonsCount == 2)
             {
+                switch (group)
+                {
+                    case "111":
+                        group = "1";
+                        break;
+                    case "882":
+                        group = "2";
+                        break;
+                    case "232":
+                        group = "3";
+                        break;
+                    case "484":
+                        group = "4";
+                        break;
+                }
+
+
+                Console.Write("Quantity for group " + group + ": ");
+                
                 for (int j = i+1; j < line.Length; j++)
                 {
-                    Console.Write(line[j]);
+                    if (line[j] == ';')
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.Write(line[j]);
+                    }
                 }
                 break;
+                
             }
         }
         
