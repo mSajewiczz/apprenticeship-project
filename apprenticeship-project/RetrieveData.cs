@@ -32,7 +32,6 @@ public class RetrieveData
             lineCounter++;
         }
         file.Close();
-
         lines = new string[counterOfLines];
 
         String line2;
@@ -63,13 +62,10 @@ public class RetrieveData
                 GetValue(lines, group);
                 break;
             case "3":
-                Sort(lines, group, type);
+                Sort(lines, group);
                 break;
             case "4":
-                Sort(lines, group, type);
-                break;
-            case "5":
-                GetValue(lines, group);
+                GetWholeValue();
                 break;
         }
     }
@@ -226,7 +222,7 @@ public class RetrieveData
         Console.WriteLine("Value for group no. " + group + " is: " + sum);
     }
 
-    public void Sort(string[] lines, string group, string type)
+    public void Sort(string[] lines, string group)
     {
         int linesLen = lines.Length;
         int[] tabOfAllDates = new int[linesLen * 3];
@@ -303,57 +299,53 @@ public class RetrieveData
             int monthInt = int.Parse(month);
             int dayInt = int.Parse(day);
 
-            // Console.WriteLine("Date: " + dayInt + "." + monthInt + "." + yearInt);
 
-            if (isMaxFull == false)
+            if (!isMaxFull)
             {
-                max[i] = dayInt;
-                max[i+1] = monthInt;
-                max[i+2] = yearInt;
+                max[0] = dayInt;
+                max[1] = monthInt;
+                max[2] = yearInt;
 
                 isMaxFull = true;
             }
             else
             {
                 bool isBigger = false;
-
-                for (int w = 0; w < 3; w++)
+                
+                if (max[2] < yearInt)
                 {
-                    if (max[w+2] < yearInt)
+                    isBigger = true;
+                } else if (max[2] == yearInt)
+                {
+                    if (max[1] < monthInt)
                     {
                         isBigger = true;
-                    }
-                    else
+                    } else if (max[1] == monthInt)
                     {
-                        if (max[w + 1] < monthInt)
+                        if (max[0] < dayInt)
                         {
                             isBigger = true;
                         }
                         else
                         {
-                            if (max[w] < dayInt)
-                            {
-                                isBigger = true;
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            break;
                         }
                     }
+                }
 
-                    if (isBigger)
-                    {
-                        min[i] = max[i];
-                        min[i+1] = max[i+1];
-                        min[i+2] = max[i+2];
-                        
-                        max[i] = dayInt;
-                        max[i+1] = monthInt;
-                        max[i+2] = yearInt;
-                    }
+                if (isBigger)
+                {
+                    min[0] = max[0];
+                    min[1] = max[1];
+                    min[2] = max[2];
+
+                    max[0] = dayInt;
+                    max[1] = monthInt;
+                    max[2] = yearInt;
                 }
             }
+            
+            // Console.WriteLine("Date: " + dayInt + "." + monthInt + "." + yearInt);
         }
         
         
@@ -372,4 +364,84 @@ public class RetrieveData
         }
     }
 
+
+    public void GetWholeValue()
+    {
+        StreamReader file = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
+        
+        String line = file.ReadLine();
+        int semiColsCounter = 0;
+        
+        List<string> lines = new List<string>();
+        int tmp = 0;
+        
+        while (line != null)
+        {
+            if (tmp != 0)
+            {
+                lines.Add(line);
+            }
+
+            tmp++;
+            line = file.ReadLine();
+        }
+
+        double[] allValuesFromFile = new double[lines.Count];
+
+        for (int i = 0; i < lines.Count; i++)
+        {
+            
+            char[] valueChar = {};
+            string val = lines[i];
+            int valLen = 0;
+            
+            for (int j = 0; j < val.Length; j++)
+            {
+                if (val[j] == ';')
+                {
+                    semiColsCounter++;
+                }
+
+                if (semiColsCounter == 5)
+                {
+                    if (val[j] != ';')
+                    {
+                        valLen++;
+                    }
+                }
+            }
+
+            int tmp1 = 0;
+            semiColsCounter = 0;
+
+            
+            for (int k = 0; k < val.Length; k++)
+            {
+                valueChar = new char[valLen];
+                
+                if (val[k] == ';')
+                {
+                    semiColsCounter++;
+                }
+
+                if (semiColsCounter == 5)
+                {
+                    if (val[k] != ';')
+                    {
+                        valueChar[tmp1] = val[k];
+                        tmp1++;
+                    }
+                }
+            }
+
+            foreach (var x in valueChar)
+            {
+                Console.WriteLine(x);
+            }
+        }
+        
+            
+        //valLen, linesCounter, 
+        file.Close();
+    }
 }

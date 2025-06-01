@@ -9,7 +9,7 @@ namespace apprenticeship_project
 
             Console.ForegroundColor = ConsoleColor.Green;
 
-            Console.WriteLine("1 - get quantity of group, 2 - get value of group, 3 - sort group by date (min -> max), 4 - sort group by date (max -> min), 5 - get value of whole file, 0 - exit.");
+            Console.WriteLine("1 - get quantity of group, 2 - get value of group, 3 - get date min/max of group, 4 - get value of whole file, 0 - exit.");
             Console.Write("Select option: ");
             string option = Console.ReadLine();
 
