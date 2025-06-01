@@ -20,3 +20,9 @@ datę min i max dla wybranej grupy i wartość wszystkich produktów w danej gru
 2. zwrot danych do usera z danej grupy
 
 //checkpoint: wypisz wszystkie dane z pliku: User podaje grupe od 1 do 4 i dane są wyświetlane w konsoli 
+
+MATERIALY: 
+1. https://stackoverflow.com/questions/11399439/converting-string-to-double-in-c-sharp
+2. https://stackoverflow.com/questions/20274189/c-sharp-why-i-get-unhandled-exception-system-formatexception-input-string-was
+3. https://stackoverflow.com/questions/1019793/how-can-i-convert-string-to-int
+4. https://stackoverflow.com/questions/3263817/is-there-an-easy-way-to-change-a-char-in-a-string-in-c

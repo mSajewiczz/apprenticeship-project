@@ -143,16 +143,15 @@ public class RetrieveData
         {
             sum = sum + tabOfAllQuantities[l];
         }
-
-        // Console.WriteLine("tabOfAllQuantities.Length: " + tabOfAllQuantities.Length);
-        Console.WriteLine("Quantity for group no. " + group + ": " + sum);
+        
+        Console.WriteLine("Quantity for group no. " + group + " is: " + sum);
     }
 
     public void GetValue(string[] lines, string group)
     {
         int linesLen = lines.Length;
         
-        double[] tabOfAllQuantities = new double[linesLen];
+        double[] tabOfAllValues = new double[linesLen];
         
         for (int i = 0; i < linesLen; i++)
         {
@@ -214,50 +213,111 @@ public class RetrieveData
             
             string test = new string(array);
             double testValInt = double.Parse(test);
-            tabOfAllQuantities[i] = testValInt;
+            tabOfAllValues[i] = testValInt;
         }
 
         double sum = 0;
         
-        for(int l = 0; l < tabOfAllQuantities.Length; l++)
+        for(int l = 0; l < tabOfAllValues.Length; l++)
         {
-            sum = sum + tabOfAllQuantities[l];
+            sum = sum + tabOfAllValues[l];
         }
         
-        Console.WriteLine("Quantity for group no. " + group + ": " + sum);
+        Console.WriteLine("Value for group no. " + group + " is: " + sum);
     }
 
     public void Sort(string[] lines, string group, string type)
     {
-        string year = "0000";
+        int linesLen = lines.Length;
+        int[] tabOfAllDates = new int[linesLen * 3];
         
-        for (int i = 0; i < lines.Length; i++)
+         char[] year = new char[4];
+         char[] day = new char[2];
+         char[] month = new char[2];
+
+         int[] max = new int[3];
+         int[] min = new int[3];
+         
+        
+        for (int i = 0; i < linesLen; i++)
         {
-            
-            char[] arr = year.ToCharArray();
-            int semiConlonsCounter = 0;
-
             string line = lines[i];
+            int semiColsCount = 0;
+            int dashCount = 0;
+            
+            int tmp1 = 0;
+            int tmp2 = 0;
+            int tmp3 = 0;
 
-            for (int j = 0; j < line.Length; j++)
+
+            for (int k = 0; k < line.Length; k++)
             {
-                if (line[j] == ';')
+                if (line[k] == ';')
                 {
-                    semiConlonsCounter++;
+                    semiColsCount++;
                 }
-
-                if (semiConlonsCounter == 3)
+                
+                if (semiColsCount == 3)
                 {
+                    if (line[k] != ';')
+                    {
+                        if (line[k] == '-')
+                        {
+                            dashCount++;
+                        }
+
+                        if (dashCount == 0)
+                        { 
+                            year[tmp1] = line[k];
+                            tmp1++;
+                            
+                        }
+                        if (dashCount == 1)
+                        {
+                            if (line[k] != '-')
+                            {
+                                month[tmp2] = line[k];
+                                tmp2++;    
+                            }
+                        }
+                        if (dashCount == 2)
+                        {
+                            if (line[k] != '-')
+                            {
+                                day[tmp3] = line[k];
+                                tmp3++;   
+                            }
+                        }
+                    }
                     
-                    arr[j] = line[j+1];
+                } else if (semiColsCount > 3)
+                {
+                    break;
                 }
             }
-            
-            year = new string(arr);
 
-            Console.WriteLine(year);
+            int yearInt = int.Parse(year);
+            int monthInt = int.Parse(month);
+            int dayInt = int.Parse(day);
+
+            Console.WriteLine("Date: " + dayInt + "." + monthInt + "." + yearInt);
+
+            // tabOfAllDates[i] = dayInt;
+            // tabOfAllDates[i+1] = monthInt;
+            // tabOfAllDates[i+2] = yearInt;
+            
+            
+            
         }
         
+        
+        for(int l = 0; l < tabOfAllDates.Length; l++)
+        {
+            Console.Write(tabOfAllDates[l] + ", ");
+        }
+        
+
+
     }
 
 }
