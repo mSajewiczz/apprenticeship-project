@@ -49,19 +49,23 @@ public class RetrieveData
 
         file.Close();
 
-        Sort(lines, group, option);
+        GetQuantity(lines, group);
     }
 
     public void GetQuantity(string[] lines, string group)
     {
         //grupe + tablice lin gdzie sa informacje wszystkie
+        
+        //char[] -> string -> double 
 
-        string[] values = new string[lines.Length];
-
+        int quantityLen = 0;
+        int quantityNum = 0;
+        char[] array;
+        int tmp = 0; //to jest to id do arraya charow 
+        
         for (int i = 0; i < lines.Length; i++)
         {
             int semiConlonsCounter = 0;
-            
             string line = lines[i];
 
             for (int j = 0; j < line.Length; j++)
@@ -73,12 +77,55 @@ public class RetrieveData
 
                 if (semiConlonsCounter == 2)
                 {
-                    Console.Write(line[j]);
+                    quantityLen++;
                 }
             }
-            Console.WriteLine();
         }
         
+       array = new char[quantityLen];
+       
+       for (int i = 0; i < lines.Length; i++)
+       {
+           int semiConlonsCounter = 0;
+           string line = lines[i];
+
+           for (int j = 0; j < line.Length; j++)
+           {
+               if (line[j] == ';')
+               {
+                   semiConlonsCounter++;
+               }
+
+               if (semiConlonsCounter == 2)
+               {
+                   if (line[j] != ';')
+                   {
+                       array[tmp] = line[j];
+                       tmp++;
+                   }
+                  
+               }
+           }
+           
+           string quantity = new string(array);
+           
+
+           if (quantityNum == 0)
+           {
+               quantityNum = int.Parse(quantity);
+               array = new char[quantityLen];
+           }
+           else
+           {
+               int curr = int.Parse(quantity);
+               quantityNum = quantityNum + curr;
+           }
+           
+               Console.WriteLine("test " + quantityNum);
+           
+       }
+       
+      
     }
 
     public void GetValue(string[] lines, string group)
