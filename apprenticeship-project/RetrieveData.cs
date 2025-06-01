@@ -7,54 +7,60 @@ public class RetrieveData
 {
     public void prepareData(string group, string option)
     {
-        // Console.WriteLine("test");
-        //tutaj test tego czy przy wyszukiwaniu kolejnego elementu tez on sie zaczyna od goruy 
         int lineCounter = 0;
         int counterOfLines = 0;
 
         String line;
-        StreamReader file =
-            new StreamReader(
-                "C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
+        StreamReader file = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
         line = file.ReadLine();
 
-        string[] lines = { "", "", "" };
+        string[] lines = {};
+        int tmp = 0;
 
         while (line != null)
         {
-            if (lineCounter != 0)
-            {
                 for (int i = 0; i < line.Length; i++)
                 {
-                    //ten if ponizej sprawdza czy dana linia ma dana grupe 
-
                     if (line[i] == ';' && line[i + 1] == group[0] && line[i + 2] == group[1] &&
                         line[i + 3] == group[2])
                     {
-                        //tutaj ta metoda ona wyciaga:
-                        //- dana linie pliku,
-                        //- podana przez usera grupe
-
-                        lines[counterOfLines] = line;
-
                         counterOfLines++;
-                        break;
                     }
                 }
-            }
-
+                
             line = file.ReadLine();
             lineCounter++;
         }
-
         file.Close();
 
+        lines = new string[counterOfLines];
+
+        String line2;
+        StreamReader file2 = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
+        line2 = file2.ReadLine();
+        while (line2 != null)
+        {
+            for (int i = 0; i < line2.Length; i++)
+            {
+                if (line2[i] == ';' && line2[i + 1] == group[0] && line2[i + 2] == group[1] &&
+                    line2[i + 3] == group[2])
+                {
+                    lines[tmp] = line2;
+                    tmp++;
+                }
+
+            }
+            line2 = file2.ReadLine();
+            lineCounter++;
+        }
+        file.Close();
+        
         GetQuantity(lines, group);
     }
 
     public void GetQuantity(string[] lines, string group)
     {
-        int linesLen = lines.Length - 1;
+        int linesLen = lines.Length;
         
         int[] tabOfAllQuantities = new int[linesLen];
         
@@ -133,7 +139,8 @@ public class RetrieveData
         {
             sum = sum + tabOfAllQuantities[l];
         }
-        
+
+        Console.WriteLine("tabOfAllQuantities.Length: " + tabOfAllQuantities.Length);
         Console.WriteLine("OUTPUT: " + sum);
     }
 
