@@ -57,14 +57,14 @@ public class RetrieveData
         //grupe + tablice lin gdzie sa informacje wszystkie
         
         //char[] -> string -> double 
-
-        int quantityLen = 0;
-        int quantityNum = 0;
-        char[] array;
         int tmp = 0; //to jest to id do arraya charow 
         
         for (int i = 0; i < lines.Length; i++)
         {
+            char[] array;
+            int quantityLen = 0;
+            int quantityNum = 0;
+            
             int semiConlonsCounter = 0;
             string line = lines[i];
 
@@ -80,52 +80,73 @@ public class RetrieveData
                     quantityLen++;
                 }
             }
+            
+            
+            array = new char[quantityLen];
+            
+            for (int j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiConlonsCounter++;
+                }
+
+                if (semiConlonsCounter == 2)
+                {
+                    if (line[j] != ';')
+                    {
+                        array[tmp] = line[j];
+                        tmp++;
+                    }
+                  
+                }
+            }
+            
+            string quantity = new string(array);
+            quantityNum = int.Parse(quantity);
+            Console.WriteLine(quantityNum);
+            tmp = 0;
         }
         
-       array = new char[quantityLen];
        
-       for (int i = 0; i < lines.Length; i++)
-       {
-           int semiConlonsCounter = 0;
-           string line = lines[i];
+       // for (int i = 0; i < lines.Length; i++)
+       // {
+       //     int semiConlonsCounter = 0;
+       //     string line = lines[i];
 
-           for (int j = 0; j < line.Length; j++)
-           {
-               if (line[j] == ';')
-               {
-                   semiConlonsCounter++;
-               }
-
-               if (semiConlonsCounter == 2)
-               {
-                   if (line[j] != ';')
-                   {
-                       array[tmp] = line[j];
-                       tmp++;
-                   }
-                  
-               }
-           }
+           // for (int j = 0; j < line.Length; j++)
+           // {
+           //     if (line[j] == ';')
+           //     {
+           //         semiConlonsCounter++;
+           //     }
+           //
+           //     if (semiConlonsCounter == 2)
+           //     {
+           //         if (line[j] != ';')
+           //         {
+           //             array[tmp] = line[j];
+           //             tmp++;
+           //         }
+           //        
+           //     }
+           // }
            
-           string quantity = new string(array);
+           // string quantity = new string(array);
            
-
-           if (quantityNum == 0)
-           {
-               quantityNum = int.Parse(quantity);
-               array = new char[quantityLen];
-           }
-           else
-           {
-               int curr = int.Parse(quantity);
-               quantityNum = quantityNum + curr;
-           }
+           // if (quantityNum == 0)
+           // {
+           //     quantityNum = int.Parse(quantity);
+           //     array = new char[quantityLen];
+           // }
+           // else
+           // {
+           //     int curr = int.Parse(quantity);
+           //     quantityNum = quantityNum + curr;
+           // }
            
-               Console.WriteLine("test " + quantityNum);
-           
-       }
-       
-      
+           // Console.WriteLine(quantityNum);
+       // }
     }
 
     public void GetValue(string[] lines, string group)
