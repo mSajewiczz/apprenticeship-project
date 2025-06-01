@@ -5,7 +5,7 @@ using System.IO;
 
 public class RetrieveData
 {
-    public void prepareData(string group, string option)
+    public void prepareData(string group, string option, string type)
     {
         int lineCounter = 0;
         int counterOfLines = 0;
@@ -53,8 +53,22 @@ public class RetrieveData
             lineCounter++;
         }
         file.Close();
-        
-        GetQuantity(lines, group);
+
+        switch (option)
+        {
+            case "1":
+                GetQuantity(lines, group); 
+                break;
+            case "2":
+                GetValue(lines, group);
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+        }
     }
 
     public void GetQuantity(string[] lines, string group)
@@ -140,7 +154,7 @@ public class RetrieveData
         }
 
         // Console.WriteLine("tabOfAllQuantities.Length: " + tabOfAllQuantities.Length);
-        Console.WriteLine("OUTPUT: " + sum);
+        Console.WriteLine("Quantity for group no. " + group + ": " + sum);
     }
 
     public void GetValue(string[] lines, string group)
