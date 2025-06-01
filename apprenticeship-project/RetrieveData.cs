@@ -54,99 +54,87 @@ public class RetrieveData
 
     public void GetQuantity(string[] lines, string group)
     {
-        //grupe + tablice lin gdzie sa informacje wszystkie
+        int linesLen = lines.Length - 1;
         
-        //char[] -> string -> double 
-        int tmp = 0; //to jest to id do arraya charow 
+        int[] tabOfAllQuantities = new int[linesLen];
         
-        for (int i = 0; i < lines.Length; i++)
+        for (int i = 0; i < linesLen; i++)
         {
-            char[] array;
-            int quantityLen = 0;
-            int quantityNum = 0;
-            
-            int semiConlonsCounter = 0;
             string line = lines[i];
-
+            int lengthOfQuantity = 0;
+            int semiColsCount = 0;
+            
             for (int j = 0; j < line.Length; j++)
             {
                 if (line[j] == ';')
                 {
-                    semiConlonsCounter++;
+                    //tutaj liczysz ile ; juz wystapilo
+                    semiColsCount++;
                 }
-
-                if (semiConlonsCounter == 2)
+                
+                if (semiColsCount == 2)
                 {
-                    quantityLen++;
+                        //tutaj masz dlugosc danej wartosci
+                        if (line[j] != ';')
+                        {
+                            lengthOfQuantity++;
+                        }
+                } else if (semiColsCount > 2)
+                {
+                    //przerwanie po odczytaniu dlugosci
+                    break;
                 }
             }
             
+            semiColsCount = 0;
+            Console.WriteLine("Quantity len: " + lengthOfQuantity);
             
-            array = new char[quantityLen];
-            
-            for (int j = 0; j < line.Length; j++)
-            {
-                if (line[j] == ';')
-                {
-                    semiConlonsCounter++;
-                }
+            char[] array = new char[lengthOfQuantity];
+            int tmp = 0;
 
-                if (semiConlonsCounter == 2)
+            for (int k = 0; k < line.Length; k++)
+            {
+                if (line[k] == ';')
                 {
-                    if (line[j] != ';')
+                    semiColsCount++;
+                }
+                
+                if (semiColsCount == 2)
+                {
+                    if (line[k] != ';')
                     {
-                        array[tmp] = line[j];
+                        array[tmp] = line[k];
                         tmp++;
                     }
-                  
+                    
+                } else if (semiColsCount > 2)
+                {
+                    break;
                 }
             }
+
+            Console.Write("Value of char arr: ");
+            foreach (var val in array)
+            {
+                Console.Write(val);
+            }
             
-            string quantity = new string(array);
-            quantityNum = int.Parse(quantity);
-            Console.WriteLine(quantityNum);
-            tmp = 0;
+            Console.WriteLine();
+
+            string test = new string(array);
+            int testValInt = int.Parse(test);
+            
+            tabOfAllQuantities[i] = testValInt;
+        }
+
+        int sum = 0;
+        
+        for(int l = 0; l < tabOfAllQuantities.Length; l++)
+        {
+            sum = sum + tabOfAllQuantities[l];
         }
         
-       
-       // for (int i = 0; i < lines.Length; i++)
-       // {
-       //     int semiConlonsCounter = 0;
-       //     string line = lines[i];
-
-           // for (int j = 0; j < line.Length; j++)
-           // {
-           //     if (line[j] == ';')
-           //     {
-           //         semiConlonsCounter++;
-           //     }
-           //
-           //     if (semiConlonsCounter == 2)
-           //     {
-           //         if (line[j] != ';')
-           //         {
-           //             array[tmp] = line[j];
-           //             tmp++;
-           //         }
-           //        
-           //     }
-           // }
-           
-           // string quantity = new string(array);
-           
-           // if (quantityNum == 0)
-           // {
-           //     quantityNum = int.Parse(quantity);
-           //     array = new char[quantityLen];
-           // }
-           // else
-           // {
-           //     int curr = int.Parse(quantity);
-           //     quantityNum = quantityNum + curr;
-           // }
-           
-           // Console.WriteLine(quantityNum);
-       // }
+        Console.WriteLine("OUTPUT: " + sum);
     }
 
     public void GetValue(string[] lines, string group)
