@@ -63,10 +63,13 @@ public class RetrieveData
                 GetValue(lines, group);
                 break;
             case "3":
+                Sort(lines, group, type);
                 break;
             case "4":
+                Sort(lines, group, type);
                 break;
             case "5":
+                GetValue(lines, group);
                 break;
         }
     }
@@ -87,26 +90,22 @@ public class RetrieveData
             {
                 if (line[j] == ';')
                 {
-                    //tutaj liczysz ile ; juz wystapilo
                     semiColsCount++;
                 }
                 
                 if (semiColsCount == 2)
                 {
-                        //tutaj masz dlugosc danej wartosci
                         if (line[j] != ';')
                         {
                             lengthOfQuantity++;
                         }
                 } else if (semiColsCount > 2)
                 {
-                    //przerwanie po odczytaniu dlugosci
                     break;
                 }
             }
             
             semiColsCount = 0;
-            // Console.WriteLine("Quantity len: " + lengthOfQuantity);
             
             char[] array = new char[lengthOfQuantity];
             int tmp = 0;
@@ -131,15 +130,7 @@ public class RetrieveData
                     break;
                 }
             }
-
-            // Console.Write("Value of char arr: ");
-            // foreach (var val in array)
-            // {
-            //     Console.Write(val);
-            // }
             
-            // Console.WriteLine();
-
             string test = new string(array);
             int testValInt = int.Parse(test);
             
@@ -159,27 +150,81 @@ public class RetrieveData
 
     public void GetValue(string[] lines, string group)
     {
-        for (int i = 0; i < lines.Length; i++)
+        int linesLen = lines.Length;
+        
+        double[] tabOfAllQuantities = new double[linesLen];
+        
+        for (int i = 0; i < linesLen; i++)
         {
-            int semiConlonsCounter = 0;
-
             string line = lines[i];
-
+            int lengthOfQuantity = 0;
+            int semiColsCount = 0;
+            
             for (int j = 0; j < line.Length; j++)
             {
                 if (line[j] == ';')
                 {
-                    semiConlonsCounter++;
+                    semiColsCount++;
                 }
-
-                if (semiConlonsCounter == 5)
+                
+                if (semiColsCount == 5)
                 {
-                    Console.Write(line[j]);
+                    if (line[j] != ';')
+                    {
+                        lengthOfQuantity++;
+                    }
+                } else if (semiColsCount > 5)
+                {
+                    break;
                 }
             }
+            
+            semiColsCount = 0;
+            
+            char[] array = new char[lengthOfQuantity];
+            int tmp = 0;
 
-            Console.WriteLine();
+            for (int k = 0; k < line.Length; k++)
+            {
+                if (line[k] == ';')
+                {
+                    semiColsCount++;
+                }
+                
+                if (semiColsCount == 5)
+                {
+                    if (line[k] != ';')
+                    {
+                        if (line[k] == '.')
+                        {
+                            array[tmp] = ',';
+                        }
+                        else
+                        {
+                            array[tmp] = line[k];
+                        }
+                        tmp++;
+                    }
+                    
+                } else if (semiColsCount > 5)
+                {
+                    break;
+                }
+            }
+            
+            string test = new string(array);
+            double testValInt = double.Parse(test);
+            tabOfAllQuantities[i] = testValInt;
         }
+
+        double sum = 0;
+        
+        for(int l = 0; l < tabOfAllQuantities.Length; l++)
+        {
+            sum = sum + tabOfAllQuantities[l];
+        }
+        
+        Console.WriteLine("Quantity for group no. " + group + ": " + sum);
     }
 
     public void Sort(string[] lines, string group, string type)
