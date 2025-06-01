@@ -235,6 +235,9 @@ public class RetrieveData
          char[] day = new char[2];
          char[] month = new char[2];
 
+         bool isMaxFull = false;
+         // bool isMinFull = false;
+         
          int[] max = new int[3];
          int[] min = new int[3];
          
@@ -300,24 +303,73 @@ public class RetrieveData
             int monthInt = int.Parse(month);
             int dayInt = int.Parse(day);
 
-            Console.WriteLine("Date: " + dayInt + "." + monthInt + "." + yearInt);
+            // Console.WriteLine("Date: " + dayInt + "." + monthInt + "." + yearInt);
 
-            // tabOfAllDates[i] = dayInt;
-            // tabOfAllDates[i+1] = monthInt;
-            // tabOfAllDates[i+2] = yearInt;
-            
-            
-            
+            if (isMaxFull == false)
+            {
+                max[i] = dayInt;
+                max[i+1] = monthInt;
+                max[i+2] = yearInt;
+
+                isMaxFull = true;
+            }
+            else
+            {
+                bool isBigger = false;
+
+                for (int w = 0; w < 3; w++)
+                {
+                    if (max[w+2] < yearInt)
+                    {
+                        isBigger = true;
+                    }
+                    else
+                    {
+                        if (max[w + 1] < monthInt)
+                        {
+                            isBigger = true;
+                        }
+                        else
+                        {
+                            if (max[w] < dayInt)
+                            {
+                                isBigger = true;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    if (isBigger)
+                    {
+                        min[i] = max[i];
+                        min[i+1] = max[i+1];
+                        min[i+2] = max[i+2];
+                        
+                        max[i] = dayInt;
+                        max[i+1] = monthInt;
+                        max[i+2] = yearInt;
+                    }
+                }
+            }
         }
         
         
-        for(int l = 0; l < tabOfAllDates.Length; l++)
+        Console.Write("Max date: ");
+        foreach (var maxVal in max)
         {
-            Console.Write(tabOfAllDates[l] + ", ");
+            Console.Write(maxVal + ".");
         }
+
+        Console.WriteLine();
         
-
-
+        Console.Write("Min date: ");
+        foreach (var minVal in min)
+        {
+            Console.Write(minVal + ".");
+        }
     }
 
 }
