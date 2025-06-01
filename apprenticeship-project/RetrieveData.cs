@@ -48,7 +48,6 @@ public class RetrieveData
                     lines[tmp] = line2;
                     tmp++;
                 }
-
             }
             line2 = file2.ReadLine();
             lineCounter++;
@@ -93,7 +92,7 @@ public class RetrieveData
             }
             
             semiColsCount = 0;
-            Console.WriteLine("Quantity len: " + lengthOfQuantity);
+            // Console.WriteLine("Quantity len: " + lengthOfQuantity);
             
             char[] array = new char[lengthOfQuantity];
             int tmp = 0;
@@ -119,13 +118,13 @@ public class RetrieveData
                 }
             }
 
-            Console.Write("Value of char arr: ");
-            foreach (var val in array)
-            {
-                Console.Write(val);
-            }
+            // Console.Write("Value of char arr: ");
+            // foreach (var val in array)
+            // {
+            //     Console.Write(val);
+            // }
             
-            Console.WriteLine();
+            // Console.WriteLine();
 
             string test = new string(array);
             int testValInt = int.Parse(test);
@@ -140,7 +139,7 @@ public class RetrieveData
             sum = sum + tabOfAllQuantities[l];
         }
 
-        Console.WriteLine("tabOfAllQuantities.Length: " + tabOfAllQuantities.Length);
+        // Console.WriteLine("tabOfAllQuantities.Length: " + tabOfAllQuantities.Length);
         Console.WriteLine("OUTPUT: " + sum);
     }
 
