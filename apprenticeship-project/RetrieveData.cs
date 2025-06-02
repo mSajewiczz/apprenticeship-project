@@ -370,7 +370,7 @@ public class RetrieveData
         StreamReader file = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
         
         String line = file.ReadLine();
-        int semiColsCounter = 0;
+        
         
         List<string> lines = new List<string>();
         int tmp = 0;
@@ -390,7 +390,7 @@ public class RetrieveData
 
         for (int i = 0; i < lines.Count; i++)
         {
-            
+            int semiColsCounter = 0;
             char[] valueChar = {};
             string val = lines[i];
             int valLen = 0;
@@ -410,20 +410,20 @@ public class RetrieveData
                     }
                 }
             }
+            //CHECKPOINT: getting length of value works! 
+            // Console.WriteLine("Length of value no." + (i+1) + ": " + valLen);
 
             int tmp1 = 0;
             semiColsCounter = 0;
-
             
+            valueChar = new char[valLen];
             for (int k = 0; k < val.Length; k++)
             {
-                valueChar = new char[valLen];
-                
                 if (val[k] == ';')
                 {
                     semiColsCounter++;
                 }
-
+            
                 if (semiColsCounter == 5)
                 {
                     if (val[k] != ';')
@@ -432,12 +432,21 @@ public class RetrieveData
                         tmp1++;
                     }
                 }
+            
+                if (semiColsCounter > 5)
+                {
+                    break;
+                }
             }
-
+            
+            Console.Write("Value: ");
             foreach (var x in valueChar)
             {
-                Console.WriteLine(x);
+                Console.Write(x);
             }
+            
+            //CHECKPOINT: getting value of each position in file works!
+            Console.WriteLine();
         }
         
             
