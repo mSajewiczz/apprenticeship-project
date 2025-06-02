@@ -272,44 +272,59 @@ public class RetrieveData
 
         string max = "";
         string min = "";
-
-        if (!isEmpty)
-        {
-            max = date[0];
-            isEmpty = true;
-        }
         
-            for (int i = 0; i < date.Count; i++)
+        max = date[0];
+        
+        for (int i = 0; i < date.Count; i++)
+        {
+            string lineVal = date[i];
+            for (int j = 0; j < lineVal.Length; j++)
             {
-                string lineVal = date[i];
-                for (int j = 0; j < lineVal.Length; j++)
+                if (max[0] < lineVal[0])
                 {
-                    if (lineVal[0] > max[0])
-                    {
-                        max = lineVal;
-                    } else if (lineVal[1] > max[1])
-                    {
-                        max = lineVal;
-                    }else if (lineVal[2] > max[2])
-                    {
-                        max = lineVal;
-                    }else if (lineVal[3] > max[3])
-                    {
-                        max = lineVal;
-                    }else if (lineVal[5] > max[5])
-                    {
-                        max = lineVal;
-                    }else if (lineVal[6] > max[6])
-                    {
-                        max = lineVal;
-                    }else if ((lineVal[8] > max[8] && lineVal[9] > max[9]) || lineVal[8] > max[8]) 
-                    {
-                        max = lineVal;
-                    }
-                    else
-                    {
-                        min = lineVal;
-                    }
+                    max = lineVal;
+                    break;
+                }
+                else if (max[1] < lineVal[1])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else if (max[2] < lineVal[2])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else if (max[3] < lineVal[3])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else if (max[5] < lineVal[5])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else if (max[6] < lineVal[6])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else if (max[8] < lineVal[8])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else if (max[9] < lineVal[9] && max[8] < lineVal[8])
+                {
+                    max = lineVal;
+                    break;
+                }
+                else
+                {
+                    min = lineVal;
+                    break;
+                }
             }
         }
 
