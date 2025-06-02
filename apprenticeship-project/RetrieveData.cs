@@ -428,7 +428,14 @@ public class RetrieveData
                 {
                     if (val[k] != ';')
                     {
-                        valueChar[tmp1] = val[k];
+                        if (val[k] == '.')
+                        {
+                            valueChar[tmp1] = ',';
+                        }
+                        else
+                        {
+                            valueChar[tmp1] = val[k];
+                        }
                         tmp1++;
                     }
                 }
@@ -439,15 +446,29 @@ public class RetrieveData
                 }
             }
             
-            Console.Write("Value: ");
-            foreach (var x in valueChar)
-            {
-                Console.Write(x);
-            }
+            
+            // foreach (var x in valueChar)
+            // {
+            //     Console.Write(x);
+            // }
+
+            string strVal = new string(valueChar);
+            double numVal = double.Parse(strVal);
             
             //CHECKPOINT: getting value of each position in file works!
-            Console.WriteLine();
+            
+            // Console.Write("Num value: " + numVal);
+            // Console.WriteLine();
+
+            allValuesFromFile[i] = numVal;
         }
+
+        foreach (var x in allValuesFromFile)
+        {
+            Console.WriteLine("Value from tab: " + x);
+        }
+        
+        //CHECKPOINT: setting data to array and getting them to console.wrtiteline works!
         
             
         //valLen, linesCounter, 
