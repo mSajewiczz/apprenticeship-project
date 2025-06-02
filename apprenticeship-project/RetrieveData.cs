@@ -5,7 +5,7 @@ using System.IO;
 
 public class RetrieveData
 {
-    public void prepareData(string group, string option, string type)
+    public void prepareData(string group, string option)
     {
         int lineCounter = 0;
         int counterOfLines = 0;
@@ -224,144 +224,49 @@ public class RetrieveData
 
     public void Sort(string[] lines, string group)
     {
-        int linesLen = lines.Length;
-        int[] tabOfAllDates = new int[linesLen * 3];
+        List<string> date = new List<string>();
         
-         char[] year = new char[4];
-         char[] day = new char[2];
-         char[] month = new char[2];
 
-         bool isMaxFull = false;
-         // bool isMinFull = false;
-         
-         int[] max = new int[3];
-         int[] min = new int[3];
-         
-        
-        for (int i = 0; i < linesLen; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
-            string line = lines[i];
             int semiColsCount = 0;
-            int dashCount = 0;
-            
-            int tmp1 = 0;
-            int tmp2 = 0;
-            int tmp3 = 0;
+            string line = lines[i];
 
+            char[] dateArr = new char[10];
+            int tmp = 0;
 
-            for (int k = 0; k < line.Length; k++)
+            for (int j = 0; j < line.Length; j++)
             {
-                if (line[k] == ';')
+                if (line[j] == ';')
                 {
                     semiColsCount++;
                 }
-                
+
                 if (semiColsCount == 3)
                 {
-                    if (line[k] != ';')
+                    if (line[j] != ';')
                     {
-                        if (line[k] == '-')
-                        {
-                            dashCount++;
-                        }
-
-                        if (dashCount == 0)
-                        { 
-                            year[tmp1] = line[k];
-                            tmp1++;
-                            
-                        }
-                        if (dashCount == 1)
-                        {
-                            if (line[k] != '-')
-                            {
-                                month[tmp2] = line[k];
-                                tmp2++;    
-                            }
-                        }
-                        if (dashCount == 2)
-                        {
-                            if (line[k] != '-')
-                            {
-                                day[tmp3] = line[k];
-                                tmp3++;   
-                            }
-                        }
+                        dateArr[tmp] = line[j];
+                        tmp++;
                     }
-                    
-                } else if (semiColsCount > 3)
+                }
+
+                if (semiColsCount > 3)
                 {
                     break;
                 }
             }
 
-            int yearInt = int.Parse(year);
-            int monthInt = int.Parse(month);
-            int dayInt = int.Parse(day);
-
-
-            if (!isMaxFull)
-            {
-                max[0] = dayInt;
-                max[1] = monthInt;
-                max[2] = yearInt;
-
-                isMaxFull = true;
-            }
-            else
-            {
-                bool isBigger = false;
-                
-                if (max[2] < yearInt)
-                {
-                    isBigger = true;
-                } else if (max[2] == yearInt)
-                {
-                    if (max[1] < monthInt)
-                    {
-                        isBigger = true;
-                    } else if (max[1] == monthInt)
-                    {
-                        if (max[0] < dayInt)
-                        {
-                            isBigger = true;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                }
-
-                if (isBigger)
-                {
-                    min[0] = max[0];
-                    min[1] = max[1];
-                    min[2] = max[2];
-
-                    max[0] = dayInt;
-                    max[1] = monthInt;
-                    max[2] = yearInt;
-                }
-            }
-            
-            // Console.WriteLine("Date: " + dayInt + "." + monthInt + "." + yearInt);
+            string dateStr = new string(dateArr);
+            date.Add(dateStr);
         }
-        
-        
-        Console.Write("Max date: ");
-        foreach (var maxVal in max)
+
+        foreach (var x in date)
         {
-            Console.Write(maxVal + ".");
+            Console.WriteLine("Date: " + x);
         }
-
-        Console.WriteLine();
         
-        Console.Write("Min date: ");
-        foreach (var minVal in min)
-        {
-            Console.Write(minVal + ".");
-        }
+        //CHECKPOINT: saving date in list and getting it to console works!
     }
     
     public void GetWholeValue()

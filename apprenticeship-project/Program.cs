@@ -12,9 +12,12 @@ namespace apprenticeship_project
             Console.WriteLine("1 - get quantity of group, 2 - get value of group, 3 - get date min/max of group, 4 - get value of whole file, 0 - exit.");
             Console.Write("Select option: ");
             string option = Console.ReadLine();
+            string group = "";
 
             string type = "null";
 
+            
+            
             if (option == "0")
             {
                 Console.WriteLine("Bye!");
@@ -22,7 +25,6 @@ namespace apprenticeship_project
             else
             {
                 bool showMenu = false;
-                string group = "";
 
                 while (!showMenu)
                 {
@@ -53,7 +55,7 @@ namespace apprenticeship_project
                     }
                 }
                 Console.ResetColor();
-                retrieveData.prepareData(group, option, type);
+                retrieveData.prepareData(group, option);
             }
             
             
