@@ -26,3 +26,4 @@ MATERIALY:
 2. https://stackoverflow.com/questions/20274189/c-sharp-why-i-get-unhandled-exception-system-formatexception-input-string-was
 3. https://stackoverflow.com/questions/1019793/how-can-i-convert-string-to-int
 4. https://stackoverflow.com/questions/3263817/is-there-an-easy-way-to-change-a-char-in-a-string-in-c
+5. https://stackoverflow.com/questions/18153559/format-a-double-to-two-digits-after-the-comma-without-rounding-up-or-down

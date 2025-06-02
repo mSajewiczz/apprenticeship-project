@@ -363,14 +363,11 @@ public class RetrieveData
             Console.Write(minVal + ".");
         }
     }
-
-
+    
     public void GetWholeValue()
     {
         StreamReader file = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
-        
         String line = file.ReadLine();
-        
         
         List<string> lines = new List<string>();
         int tmp = 0;
@@ -410,9 +407,7 @@ public class RetrieveData
                     }
                 }
             }
-            //CHECKPOINT: getting length of value works! 
-            // Console.WriteLine("Length of value no." + (i+1) + ": " + valLen);
-
+            
             int tmp1 = 0;
             semiColsCounter = 0;
             
@@ -445,33 +440,19 @@ public class RetrieveData
                     break;
                 }
             }
-            
-            
-            // foreach (var x in valueChar)
-            // {
-            //     Console.Write(x);
-            // }
-
             string strVal = new string(valueChar);
             double numVal = double.Parse(strVal);
-            
-            //CHECKPOINT: getting value of each position in file works!
-            
-            // Console.Write("Num value: " + numVal);
-            // Console.WriteLine();
 
             allValuesFromFile[i] = numVal;
         }
 
-        foreach (var x in allValuesFromFile)
+        double sum = 0; 
+        foreach (var val in allValuesFromFile)
         {
-            Console.WriteLine("Value from tab: " + x);
+            sum += val;
         }
         
-        //CHECKPOINT: setting data to array and getting them to console.wrtiteline works!
-        
-            
-        //valLen, linesCounter, 
+        Console.WriteLine("Sum of value of whole file: " + Math.Round(sum, 2));
         file.Close();
     }
 }
