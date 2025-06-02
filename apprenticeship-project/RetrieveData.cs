@@ -259,14 +259,62 @@ public class RetrieveData
 
             string dateStr = new string(dateArr);
             date.Add(dateStr);
+            //CHECKPOINT: saving date in list and getting it to console works!
         }
 
-        foreach (var x in date)
+        //IT'S IMPORTANT DOWN BELOW
+        // foreach (var x in date)
+        // {
+        //     Console.WriteLine("Date: " + x);
+        // }
+
+        bool isEmpty = false;
+
+        string max = "";
+        string min = "";
+
+        if (!isEmpty)
         {
-            Console.WriteLine("Date: " + x);
+            max = date[0];
+            isEmpty = true;
         }
         
-        //CHECKPOINT: saving date in list and getting it to console works!
+            for (int i = 0; i < date.Count; i++)
+            {
+                string lineVal = date[i];
+                for (int j = 0; j < lineVal.Length; j++)
+                {
+                    if (lineVal[0] > max[0])
+                    {
+                        max = lineVal;
+                    } else if (lineVal[1] > max[1])
+                    {
+                        max = lineVal;
+                    }else if (lineVal[2] > max[2])
+                    {
+                        max = lineVal;
+                    }else if (lineVal[3] > max[3])
+                    {
+                        max = lineVal;
+                    }else if (lineVal[5] > max[5])
+                    {
+                        max = lineVal;
+                    }else if (lineVal[6] > max[6])
+                    {
+                        max = lineVal;
+                    }else if ((lineVal[8] > max[8] && lineVal[9] > max[9]) || lineVal[8] > max[8]) 
+                    {
+                        max = lineVal;
+                    }
+                    else
+                    {
+                        min = lineVal;
+                    }
+            }
+        }
+
+        Console.WriteLine("Max: " + max);
+        Console.WriteLine("Min: " + min);
     }
     
     public void GetWholeValue()
