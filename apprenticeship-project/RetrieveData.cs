@@ -259,15 +259,8 @@ public class RetrieveData
 
             string dateStr = new string(dateArr);
             date.Add(dateStr);
-            //CHECKPOINT: saving date in list and getting it to console works!
         }
-
-        //IT'S IMPORTANT DOWN BELOW
-        // foreach (var x in date)
-        // {
-        //     Console.WriteLine("Date: " + x);
-        // }
-
+        
         bool isEmpty = false;
 
         string max = "";

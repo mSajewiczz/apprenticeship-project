@@ -15,8 +15,6 @@ namespace apprenticeship_project
             string group = "";
 
             string type = "null";
-
-            
             
             if (option == "0")
             {
@@ -57,8 +55,6 @@ namespace apprenticeship_project
                 Console.ResetColor();
                 retrieveData.prepareData(group, option);
             }
-            
-            
         }
     }
 }
