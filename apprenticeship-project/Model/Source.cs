@@ -50,8 +50,8 @@ public class Source
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error" + e.Message);
-                throw;
+                Console.WriteLine("Error");
+                
             }
         }
         else
