@@ -4,34 +4,49 @@ namespace apprenticeship_project.Model;
 
 public class Source
 {
-    public Source(string fileName)
+    public Source(string path)
     {
         //BASE_[3 cyfry]_[data w formacie yyyyMMdd].csv
         //works: @"(\ABASE_)(\d{3})_(\d{8})(\.csv)$";
         
         Regex pattern = new Regex(@"\ABASE_\d{3}_\d{8}\.csv$");
 
-        if (pattern.IsMatch(fileName))
+        for (int i = 0; i < path.Length; i++)
         {
+            //1. user podaje sciezke do pliku 
+            //2. sprawdzasz czy sciezka jest po / czy po // 
+            //3. szukasz BASE zeby sprawdzic regex 
+            //4. wycinasz zgodny z regexem file name
+        }
+
+        string fileName = "";
+
+        // if (pattern.IsMatch(fileName))
+        // {
             try
             {
                 Console.WriteLine("ok");
+                Console.WriteLine("Directory exsists: " + Directory.Exists(path));
+                Console.WriteLine("File exsists: " + File.Exists(path));
                 
-                string[] list = Directory.GetFiles(@"C:\Users\mikol\Desktop\my_code_base\projects\apprenticeship-project\apprenticeship-project\", "*.csv", SearchOption.AllDirectories);
-                foreach (string file in list)
-                {
-                    Console.WriteLine(file);
-                }
+                
+                // string[] list = Directory.GetFiles(@path, "*.csv", SearchOption.AllDirectories);
+                // foreach (string file in list)
+                // {
+                //     Console.WriteLine(file);
+                // }
+
+                Console.WriteLine(File.ReadAllText(@path));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
-        }
-        else
-        {
-            Console.WriteLine("Unknown file format. Try again.");
-        }
+        // }
+        // else
+        // {
+        //     Console.WriteLine("Unknown file format. Try again.");
+        // }
     }
 }
