@@ -10,19 +10,32 @@ public class Source
         //works: @"(\ABASE_)(\d{3})_(\d{8})(\.csv)$";
         
         Regex pattern = new Regex(@"\ABASE_\d{3}_\d{8}\.csv$");
-
-        for (int i = 0; i < path.Length; i++)
+        int tmp = 20;
+        char[] fileNameChars = new char[tmp+1];
+        for (int i = path.Length; i >= 0; i--)
         {
             //1. user podaje sciezke do pliku 
             //2. sprawdzasz czy sciezka jest po / czy po // 
             //3. szukasz BASE zeby sprawdzic regex 
             //4. wycinasz zgodny z regexem file name
+        
+            if (path[i-1].Equals('B'))
+            {
+                fileNameChars[tmp] = path[i-1];
+                break;
+            }
+            else
+            {
+                fileNameChars[tmp] = path[i-1];
+                tmp--;
+            }
         }
-
-        string fileName = "";
-
-        // if (pattern.IsMatch(fileName))
-        // {
+        string fileName = new string(fileNameChars);
+        
+        Console.WriteLine("Name of file: " + fileName);
+        
+        if (pattern.IsMatch(fileName))
+        {
             try
             {
                 Console.WriteLine("ok");
@@ -40,13 +53,13 @@ public class Source
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Error");
                 throw;
             }
-        // }
-        // else
-        // {
-        //     Console.WriteLine("Unknown file format. Try again.");
-        // }
+        }
+        else
+        {
+            Console.WriteLine("Unknown file format. Try again.");
+        }
     }
 }
