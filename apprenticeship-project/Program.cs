@@ -57,7 +57,12 @@ namespace apprenticeship_project
             //     Console.ResetColor();
             //     retrieveData.prepareData(group, option);
 
-                Source source = new Source(@"C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
+            //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------");
+            Console.Write("Write path: ");
+            string path = Console.ReadLine();
+            
+            Source source = new Source(@path);
             // }
         }
     }
