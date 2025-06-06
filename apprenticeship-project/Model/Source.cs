@@ -8,6 +8,15 @@ public class Source
     private static int tmp = 20;
     private char[] _fileNameChars = new char[tmp+1];
     private readonly string _path;
+    private static List<string> _fileContent = new List<string>();
+    
+    //static w _fileContent -> chodzi o to ze w Program.cs przy foreach nie ma konkretnego wywolania klasy tylko operacja na danej metodzie - getter do _fileContent 
+    //^^^^^^^ tego nie napisalo AI :)) 
+
+    public static List<string> FileContent
+    {
+        get { return _fileContent; }
+    }
 
     private string GetFileName()
     {
@@ -27,7 +36,6 @@ public class Source
 
         return new string(_fileNameChars);
     }
-
     
     public Source(string path)
     {
@@ -40,7 +48,12 @@ public class Source
             {
                 File.Exists(fileName);
                 var file = File.ReadAllText(@_path);
-                Console.WriteLine(file);
+
+                foreach (var line in file.Split('\n'))
+                {
+                    _fileContent.Add(line);    
+                }
+                
             }
             catch (Exception e)
             {

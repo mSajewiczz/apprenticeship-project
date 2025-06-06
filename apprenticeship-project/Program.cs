@@ -61,8 +61,14 @@ namespace apprenticeship_project
             Console.WriteLine("---------------------------------------------------------------------------------------------------------");
             Console.Write("Write path: ");
             string path = Console.ReadLine();
+            Console.WriteLine("---------------------------------------------------------------------------------------------------------");
             
             Source source = new Source(@path);
+            foreach (var x in Source.FileContent)
+            {
+                //Source.FileContent jest mozliwe tylko dzieki static - bez static musisz sie odwolac wtedy do zdefiniowanego wyzej Source source (czyli wywolanego konstruktora) 
+                Console.WriteLine(x);
+            }
             // }
         }
     }
