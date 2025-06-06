@@ -9,6 +9,8 @@ public class Source
     private char[] _fileNameChars = new char[tmp+1];
     private readonly string _path;
     private static List<string> _fileContent = new List<string>();
+    private List<char> _fileGroupsChar = new List<char>();
+    private List<char> _fileGroups = new List<char>();
     
     //static w _fileContent -> chodzi o to ze w Program.cs przy foreach nie ma konkretnego wywolania klasy tylko operacja na danej metodzie - getter do _fileContent 
     //^^^^^^^ tego nie napisalo AI :)) 
@@ -16,6 +18,47 @@ public class Source
     public static List<string> FileContent
     {
         get { return _fileContent; }
+    }
+
+    private bool CheckFilesStruct()
+    {
+        var structCorrect = false;
+        
+        for (var i = 1; i < _fileContent.Count; i++)
+        {
+            var semiColsCount = 0;
+            string line = _fileContent[i];
+
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiColsCount++;
+                }
+                
+                if (semiColsCount == 4)
+                {
+                    _fileGroupsChar.Add(line[j+1]);
+                }
+            }
+
+            
+            if (semiColsCount == 5)
+            {
+                structCorrect = true;
+            }
+            else
+            {
+                structCorrect = false;
+                break;
+            }
+
+            if (!structCorrect)
+            {
+                break;
+            }
+        }
+        return structCorrect;
     }
 
     private string GetFileName()
@@ -64,5 +107,16 @@ public class Source
         {
             Console.WriteLine("Unknown file format. Try again.");
         }
+        
+        Console.WriteLine("-----------------------------------------------------");
+        
+        Console.WriteLine("Correct struct: " + CheckFilesStruct());
+        foreach (var x in _fileGroupsChar)
+        {
+            Console.Write(x);
+        }
+        
+        Console.WriteLine();
+        
     }
 }

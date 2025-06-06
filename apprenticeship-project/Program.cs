@@ -59,11 +59,14 @@ namespace apprenticeship_project
 
             //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
             Console.WriteLine("---------------------------------------------------------------------------------------------------------");
-            Console.Write("Write path: ");
-            string path = Console.ReadLine();
+            // Console.Write("Write path: ");
+            // string path = Console.ReadLine();
+            string path =
+                "C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv";
             Console.WriteLine("---------------------------------------------------------------------------------------------------------");
             
             Source source = new Source(@path);
+            //Source.FileContent => List<>
             foreach (var x in Source.FileContent)
             {
                 //Source.FileContent jest mozliwe tylko dzieki static - bez static musisz sie odwolac wtedy do zdefiniowanego wyzej Source source (czyli wywolanego konstruktora) 
