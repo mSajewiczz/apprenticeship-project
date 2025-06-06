@@ -4,54 +4,47 @@ namespace apprenticeship_project.Model;
 
 public class Source
 {
-    private Regex pattern = new Regex(@"\ABASE_\d{3}_\d{8}\.csv$");
+    private readonly Regex _pattern = new Regex(@"\ABASE_\d{3}_\d{8}\.csv$");
     private static int tmp = 20;
     private char[] _fileNameChars = new char[tmp+1];
-    private string path;
+    private readonly string _path;
 
     private string GetFileName()
     {
-        for (int i = path.Length; i >= 0; i--)
+        for (var i = _path.Length; i >= 0; i--)
         {
-            if (path[i-1].Equals('B'))
+            if (_path[i-1].Equals('B'))
             {
-                _fileNameChars[tmp] = path[i-1];
+                _fileNameChars[tmp] = _path[i-1];
                 break;
             }
             else
             {
-                _fileNameChars[tmp] = path[i-1];
+                _fileNameChars[tmp] = _path[i-1];
                 tmp--;
             }
         }
 
         return new string(_fileNameChars);
     }
+
     
     public Source(string path)
     {
-        //BASE_[3 cyfry]_[data w formacie yyyyMMdd].csv
-        //works: @"(\ABASE_)(\d{3})_(\d{8})(\.csv)$";
+        _path = path;
+        var fileName = GetFileName();
         
-        this.path = path;
-        string fileName = GetFileName();
-        
-        if (pattern.IsMatch(fileName))
+        if (_pattern.IsMatch(fileName))
         {
-            Console.WriteLine("Name of file: " + fileName);
-            
             try
             {
-                Console.WriteLine("ok");
-                Console.WriteLine("Directory exsists: " + Directory.Exists(path));
-                Console.WriteLine("File exsists: " + File.Exists(path));
-                
-                Console.WriteLine(File.ReadAllText(@path));
+                File.Exists(fileName);
+                var file = File.ReadAllText(@_path);
+                Console.WriteLine(file);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error");
-                
+                Console.WriteLine("Error. Something went wrong.");
             }
         }
         else
