@@ -11,10 +11,6 @@ public class Source
     private static List<string> _fileContent = new();
     private List<char> _groupsChar = new();
     private List<string> _groups = new();
-
-    //static w _fileContent -> chodzi o to ze w Program.cs przy foreach nie ma konkretnego wywolania klasy tylko operacja na danej metodzie - getter do _fileContent 
-    //^^^^^^^ tego nie napisalo AI :)) 
-
     public static List<string> FileContent => _fileContent;
 
     private bool CheckFilesStruct()
@@ -61,27 +57,9 @@ public class Source
                     }
                 }
 
-
-                //najpierw trzeba:
-                //1. przejdz po calym pliku sprawdz czy cols sie zgadza (5) 
-                //2. dopiero potem zliczanie tego i dodawanie do list
                 charGroup = new char[size];
                 var tmp2 = 0;
 
-                // if (semiColsCount == 5)
-                // {
-                //     structCorrect = true;
-                // }
-                // else
-                // {
-                //     structCorrect = false;
-                //     break;
-                // }
-                //
-                // if (!structCorrect)
-                // {
-                //     break;
-                // }
                 semiColsCount = 0;
                 for (var j = 0; j < line.Length; j++)
                 {
@@ -139,7 +117,7 @@ public class Source
             }
         else
             Console.WriteLine("Unknown file format. Try again.");
-        
+
         Console.WriteLine("-----------------------------------------------------");
 
         Console.WriteLine("Correct struct: " + CheckFilesStruct());
