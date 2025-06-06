@@ -6,12 +6,15 @@ public class Source
 {
     private readonly Regex _pattern = new(@"\ABASE_\d{3}_\d{8}\.csv$");
     private static int tmp = 20;
-    private char[] _fileNameChars = new char[tmp + 1];
     private readonly string _path;
-    private static List<string> _fileContent = new();
+
+    private char[] _fileNameChars = new char[tmp + 1];
     private List<char> _groupsChar = new();
-    private List<string> _groups = new();
+
+    private static List<string> _fileContent = new();
+    private static List<string> _groups = new();
     public static List<string> FileContent => _fileContent;
+    public static List<string> Groups => _groups;
 
     private bool CheckFilesStruct()
     {
@@ -97,6 +100,8 @@ public class Source
 
         return new string(_fileNameChars);
     }
+    
+    public bool CheckFilesStructure => CheckFilesStruct();
 
     public Source(string path)
     {
