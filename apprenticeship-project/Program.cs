@@ -67,11 +67,11 @@ namespace apprenticeship_project
             
             Source source = new Source(@path);
             //Source.FileContent => List<>
-            foreach (var x in Source.FileContent)
-            {
-                //Source.FileContent jest mozliwe tylko dzieki static - bez static musisz sie odwolac wtedy do zdefiniowanego wyzej Source source (czyli wywolanego konstruktora) 
-                Console.WriteLine(x);
-            }
+            // foreach (var x in Source.FileContent)
+            // {
+            //     //Source.FileContent jest mozliwe tylko dzieki static - bez static musisz sie odwolac wtedy do zdefiniowanego wyzej Source source (czyli wywolanego konstruktora) 
+            //     Console.WriteLine(x);
+            // }
             // }
         }
     }
