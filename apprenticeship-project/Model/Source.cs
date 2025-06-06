@@ -10,7 +10,7 @@ public class Source
     private readonly string _path;
     private static List<string> _fileContent = new List<string>();
     private List<char> _fileGroupsChar = new List<char>();
-    private List<char> _fileGroups = new List<char>();
+    private List<string> _fileGroups = new List<string>();
     
     //static w _fileContent -> chodzi o to ze w Program.cs przy foreach nie ma konkretnego wywolania klasy tylko operacja na danej metodzie - getter do _fileContent 
     //^^^^^^^ tego nie napisalo AI :)) 
@@ -26,8 +26,11 @@ public class Source
         
         for (var i = 1; i < _fileContent.Count; i++)
         {
+            var size = 0;
             var semiColsCount = 0;
             string line = _fileContent[i];
+            
+            char[] test = {};
 
             for (var j = 0; j < line.Length; j++)
             {
@@ -36,12 +39,17 @@ public class Source
                     semiColsCount++;
                 }
                 
-                if (semiColsCount == 4)
+                if (semiColsCount == 4 && line[j] != ';')
                 {
+                    size++;
                     _fileGroupsChar.Add(line[j+1]);
                 }
             }
 
+            test = new char[size];
+            var tmp2 = 0;
+            
+           
             
             if (semiColsCount == 5)
             {
@@ -57,6 +65,25 @@ public class Source
             {
                 break;
             }
+
+            semiColsCount = 0;
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiColsCount++;
+                }
+                
+                if (semiColsCount == 4 && line[j] != ';')
+                {
+                    test[tmp2] = line[j];
+                    tmp2++;
+                }
+            }
+            
+            string testStr = new string(test);
+            _fileGroups.Add(testStr);
+            
         }
         return structCorrect;
     }
@@ -111,12 +138,10 @@ public class Source
         Console.WriteLine("-----------------------------------------------------");
         
         Console.WriteLine("Correct struct: " + CheckFilesStruct());
-        foreach (var x in _fileGroupsChar)
+        
+        foreach (var x in _fileGroups)
         {
-            Console.Write(x);
+            Console.WriteLine(x);
         }
-        
-        Console.WriteLine();
-        
     }
 }
