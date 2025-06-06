@@ -23,31 +23,20 @@ public class Source
     private bool CheckFilesStruct()
     {
         var structCorrect = false;
-        for (var i = 1; i < _fileContent.Count; i++)
-        {
-            var semiColsCount = 0;
-            var size = 0;
-            string line = _fileContent[i];
-            
-            char[] charGroup = {};
+        var semiColsCount = 0;
 
+        for (var k = 0; k < _fileContent.Count; k++)
+        {
+            semiColsCount = 0;
+            string line = _fileContent[k];
             for (var j = 0; j < line.Length; j++)
             {
                 if (line[j] == ';')
                 {
                     semiColsCount++;
                 }
-                
-                if (semiColsCount == 4 && line[j] != ';')
-                {
-                    size++;
-                    _groupsChar.Add(line[j+1]);
-                }
             }
 
-            charGroup = new char[size];
-            var tmp2 = 0;
-            
             if (semiColsCount == 5)
             {
                 structCorrect = true;
@@ -57,30 +46,77 @@ public class Source
                 structCorrect = false;
                 break;
             }
+        }
 
-            if (!structCorrect)
+        if (structCorrect)
+        {
+            for (var i = 1; i < _fileContent.Count; i++)
             {
-                break;
-            }
+                semiColsCount = 0;
+                var size = 0;
+                string line = _fileContent[i];
+            
+                char[] charGroup = {};
 
-            semiColsCount = 0;
-            for (var j = 0; j < line.Length; j++)
-            {
-                if (line[j] == ';')
+                for (var j = 0; j < line.Length; j++)
                 {
-                    semiColsCount++;
-                }
+                    if (line[j] == ';')
+                    {
+                        semiColsCount++;
+                    }
                 
-                if (semiColsCount == 4 && line[j] != ';')
-                {
-                    charGroup[tmp2] = line[j];
-                    tmp2++;
+                    if (semiColsCount == 4 && line[j] != ';')
+                    {
+                        size++;
+                        _groupsChar.Add(line[j+1]);
+                    }
                 }
+
+            
+                //najpierw trzeba:
+                //1. przejdz po calym pliku sprawdz czy cols sie zgadza (5) 
+                //2. dopiero potem zliczanie tego i dodawanie do list
+                charGroup = new char[size];
+                var tmp2 = 0;
+            
+                if (semiColsCount == 5)
+                {
+                    structCorrect = true;
+                }
+                else
+                {
+                    structCorrect = false;
+                    break;
+                }
+
+                if (!structCorrect)
+                {
+                    break;
+                }
+
+                semiColsCount = 0;
+                for (var j = 0; j < line.Length; j++)
+                {
+                    if (line[j] == ';')
+                    {
+                        semiColsCount++;
+                    }
+                
+                    if (semiColsCount == 4 && line[j] != ';')
+                    {
+                        charGroup[tmp2] = line[j];
+                        tmp2++;
+                    }
+                }
+            
+                string strGroup = new string(charGroup);
+                _groups.Add(strGroup);
+            
             }
-            
-            string strGroup = new string(charGroup);
-            _groups.Add(strGroup);
-            
+        }
+        else
+        {
+            Console.WriteLine("<ERROR WITH COLUMNS IN FILE>");
         }
         return structCorrect;
     }
