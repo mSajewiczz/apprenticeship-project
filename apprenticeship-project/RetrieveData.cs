@@ -166,6 +166,16 @@ public class RetrieveData
     private void GetDate(List<string> lines)
     {
         var dates = new string[lines.Count];
+        
+        string dateString = "2023-03-11"; 
+
+        DateTime date1 = DateTime.Parse(dateString);
+        DateTime parsedDate;
+
+        if (DateTime.TryParse(dateString, out parsedDate)) 
+        { 
+            Console.WriteLine("Parsed date: " + parsedDate.ToString()); 
+        } 
 
         for (var i = 0; i < lines.Count; i++)
         {
