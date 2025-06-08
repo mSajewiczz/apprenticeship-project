@@ -115,7 +115,52 @@ public class RetrieveData
 
     private void GetValue(List<string> lines)
     {
-        Console.WriteLine("2 Works!");
+        var semiColsCount = 0;
+        var quantityLen = 0;
+
+        var quantities = new double[lines.Count];
+
+        for (var i = 0; i < lines.Count; i++)
+        {
+            var line = lines[i];
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';') quantityLen++;
+            }
+
+            var quantityCharArr = new char[quantityLen];
+            var tmp = 0;
+            semiColsCount = 0;
+
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';' && line[j] != '.') 
+                {
+                    quantityCharArr[tmp] = line[j];
+                    tmp++;
+                } else if (line[j] == '.')
+                {
+                    quantityCharArr[tmp] = ',';
+                    tmp++;
+                }
+            }
+
+            var quantityStr = new string(quantityCharArr);
+
+            var quantity = double.Parse(quantityStr);
+            quantities[i] = quantity;
+        }
+
+        double result = 0;
+        foreach (var quantity in quantities) result += quantity;
+
+        Console.WriteLine("Result: " + result);
+        Console.WriteLine("-----------------------------------------------------");
+
     }
 
     private void GetDate(List<string> lines)
