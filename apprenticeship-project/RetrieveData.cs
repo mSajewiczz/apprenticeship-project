@@ -138,11 +138,12 @@ public class RetrieveData
             {
                 if (line[j] == ';') semiColsCount++;
 
-                if (semiColsCount == 5 && line[j] != ';' && line[j] != '.') 
+                if (semiColsCount == 5 && line[j] != ';' && line[j] != '.')
                 {
                     quantityCharArr[tmp] = line[j];
                     tmp++;
-                } else if (line[j] == '.')
+                }
+                else if (line[j] == '.')
                 {
                     quantityCharArr[tmp] = ',';
                     tmp++;
@@ -160,12 +161,44 @@ public class RetrieveData
 
         Console.WriteLine("Result: " + result);
         Console.WriteLine("-----------------------------------------------------");
-
     }
 
     private void GetDate(List<string> lines)
     {
-        Console.WriteLine("3 Works!");
+        var dates = new string[lines.Count];
+
+        for (var i = 0; i < lines.Count; i++)
+        {
+            var semiColsCount = 0;
+            var dateArr = new char[10];
+            var tmp = 0;
+            var line = lines[i];
+            
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiColsCount++;
+                }
+
+                if (semiColsCount == 3 && line[j] != ';')
+                {
+                    dateArr[tmp] = line[j];
+                    tmp++;
+                }
+
+                if (semiColsCount > 3)
+                {
+                    break;
+                }
+            }
+
+            dates[i] = new string(dateArr);
+        }
+        //Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
+        //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
+
+        foreach (var date in dates) Console.WriteLine("Date: " + date);
     }
 
     private void GetValueOfFile(List<string> fileContent)
