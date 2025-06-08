@@ -123,7 +123,7 @@ public class Source
 
         Console.WriteLine("-----------------------------------------------------");
 
-        Console.WriteLine("Correct struct: " + CheckFilesStruct());
-        foreach (var group in _groups) Console.WriteLine("Group: " + group);
+        // Console.WriteLine("Correct struct: " + CheckFilesStruct());
+        // foreach (var group in _groups) Console.WriteLine("Group: " + group);
     }
 }

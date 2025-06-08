@@ -27,26 +27,24 @@ internal class Program
 
                 Console.Write("\nSelect group: ");
                 group = Console.ReadLine();
+                Console.WriteLine("-----------------------------------------------------");
 
                 for (var i = 0; i < source.Groups.Count; i++)
                     if (group == source.Groups[i])
                         groupOk = true;
 
-                if (groupOk)
-                {
-                    Console.WriteLine("OK");
-                }
-                else
+                if (!groupOk)
                 {
                     test = false;
                     Console.WriteLine("Group not found.");
                 }
             }
-            
+
             Console.WriteLine(
                 "1 - Get quantity of group, 2 - Get value of group, 3 - Get date min/max of group, 4 - Get value of whole file, 0 - Exit.");
             Console.Write("Select option: ");
             option = Console.ReadLine();
+            Console.WriteLine("-----------------------------------------------------");
 
             var retrieveData = new RetrieveData();
             retrieveData.Data(option, group, source.FileContent);
