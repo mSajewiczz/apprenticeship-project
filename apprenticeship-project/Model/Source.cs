@@ -12,9 +12,9 @@ public class Source
     private List<char> _groupsChar = new();
 
     private static List<string> _fileContent = new();
-    private static List<string> _groups = new();
+    private List<string> _groups = new();
     public static List<string> FileContent => _fileContent;
-    public static List<string> Groups => _groups;
+    public List<string> Groups => _groups;
 
     private bool CheckFilesStruct()
     {
@@ -87,20 +87,20 @@ public class Source
     private string GetFileName()
     {
         for (var i = _path.Length; i > 0; i--)
-            if (_path[i-1].Equals('B'))
+            if (_path[i - 1].Equals('B'))
             {
-                _fileNameChars[tmp] = _path[i-1];
+                _fileNameChars[tmp] = _path[i - 1];
                 break;
             }
             else
             {
-                _fileNameChars[tmp] = _path[i-1];
+                _fileNameChars[tmp] = _path[i - 1];
                 tmp--;
             }
 
         return new string(_fileNameChars);
     }
-    
+
     public bool CheckFilesStructure => CheckFilesStruct();
 
     public Source(string path)

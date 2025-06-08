@@ -9,31 +9,81 @@ internal class Program
     {
         Console.WriteLine("--Data Analyse App--");
         Console.Write("Write path to your file: ");
-        string path = Console.ReadLine();
+        var path = Console.ReadLine();
         var source = new Source(@path);
+        string option, group;
+        var groupOk = false;
+        var test = false;
 
         if (source.CheckFilesStructure)
-        {
-            Console.WriteLine("1 - Get quantity of group, 2 - Get value of group, 3 - Get date min/max of group, 4 - Get value of whole file, 0 - Exit.");
-            Console.Write("Select option: ");
-            string option = Console.ReadLine();
-            
-            foreach (var x in Source.FileContent) Console.WriteLine(x);
-        }
-        
-        
-       
-        
-        
+            while (!test)
+            {
+                test = true;
+                Console.WriteLine(
+                    "1 - Get quantity of group, 2 - Get value of group, 3 - Get date min/max of group, 4 - Get value of whole file, 0 - Exit.");
+                Console.Write("Select option: ");
+                option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "0":
+                        Console.WriteLine("Bye!");
+                        break;
+                    case "1":
+                        option = "1";
+                        break;
+                    case "2":
+                        option = "2";
+                        break;
+                    case "3":
+                        option = "3";
+                        break;
+                    case "4":
+                        option = "4";
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option. Try again.");
+                        test = false;
+                        break;
+                }
+
+                // foreach (var x in Source.FileContent) Console.WriteLine(x);
+
+                string[] groupsStrings = source.Groups.ToArray();
+                
+                Console.Write("Avaliable groups: ");
+                foreach (var g in groupsStrings.Distinct())
+                {
+                    Console.Write(g + ", ");
+                }
+                
+                Console.Write("\nSelect group: ");
+                group = Console.ReadLine();
+
+                for (var i = 0; i < source.Groups.Count; i++)
+                    if (group == source.Groups[i])
+                        groupOk = true;
+
+                if (groupOk)
+                {
+                    Console.WriteLine("OK");
+                }
+                else
+                {
+                    test = false;
+                    Console.WriteLine("Group not found.");
+                }
+            }
+
+
         // Console.WriteLine("---------------------------------------------------------------------------------------------------------");
         // Console.Write("Write path: ");
         // string path = Console.ReadLine();
         // var path =
         //     "C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv";
         // Console.WriteLine("---------------------------------------------------------------------------------------------------------");
-        
-        
-        // Source.FileContent => List<>
 
+
+        // Source.FileContent => List<>
     }
 }
