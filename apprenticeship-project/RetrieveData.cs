@@ -8,40 +8,26 @@ public class RetrieveData
 {
     public void Data(string option, string group, List<string> fileContent)
     {
-        
-        List<string> lines = new List<string>();
+        var lines = new List<string>();
         var groupLen = 0;
-        for (var k = 0; k < group.Length; k++)
-        {
-            groupLen++;
-        }
-        
+        for (var k = 0; k < group.Length; k++) groupLen++;
+
         for (var i = 0; i < fileContent.Count; i++)
         {
             var tmp = 0;
-            string fileLine = fileContent[i];
-            int semiColsCount = 0;
-            
-            for(var j = 0; j < fileLine.Length; j++)
-            {
-                if (fileLine[j] == ';')
-                {
-                    semiColsCount++;
-                }
+            var fileLine = fileContent[i];
+            var semiColsCount = 0;
 
-                if (semiColsCount == 4 && fileLine[j] == group[tmp])
-                {
-                    tmp++;
-                }
+            for (var j = 0; j < fileLine.Length; j++)
+            {
+                if (fileLine[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 4 && fileLine[j] == group[tmp]) tmp++;
             }
 
-            if (tmp == groupLen)
-            {
-                lines.Add(fileLine);
-            }
+            if (tmp == groupLen) lines.Add(fileLine);
         }
-        
-        //chce zrobic takie cos ze metody beda dostawac tylko te linie gdzie jest grupa zeby 
+
         var checkOption = false;
         while (!checkOption)
         {
@@ -53,13 +39,13 @@ public class RetrieveData
                     Console.WriteLine("Bye!");
                     break;
                 case "1":
-                    GetQuantity(lines, group);
+                    GetQuantity(lines);
                     break;
                 case "2":
-                    GetValue(fileContent, group);
+                    GetValue(lines);
                     break;
                 case "3":
-                    GetDate(fileContent, group);
+                    GetDate(lines);
                     break;
                 case "4":
                     GetValueOfFile(fileContent);
@@ -79,57 +65,60 @@ public class RetrieveData
         }
     }
 
-    private void GetQuantity(List<string> lines, string group)
+    private void GetQuantity(List<string> lines)
     {
+        var semiColsCount = 0;
+        var quantityLen = 0;
 
-        foreach (var line in lines)
+        var quantities = new int[lines.Count];
+
+        for (var i = 0; i < lines.Count; i++)
         {
-            Console.WriteLine("LINE: " + line);
+            var line = lines[i];
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 2 && line[j] != ';') quantityLen++;
+            }
+
+            var quantityCharArr = new char[quantityLen];
+            var tmp = 0;
+            semiColsCount = 0;
+
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 2 && line[j] != ';')
+                {
+                    quantityCharArr[tmp] = line[j];
+                    tmp++;
+                }
+            }
+
+            var quantityStr = new string(quantityCharArr);
+
+            var quantity = int.Parse(quantityStr);
+            quantities[i] = quantity;
         }
-        
-        // var quantities = new List<int>();
-        // var semiColsCount = 0;
-        // var counter = 0;
-        //
-        // for (var i = 0; i < fileContent.Count; i++)
-        // {
-        //     var tmp = 0;
-        //     var line = fileContent[i];
-        //     var quantityArr = new char[line.Length];
-        //
-        //     for (var j = 0; j < line.Length; j++)
-        //     {
-        //         if (line[j] == ';')
-        //         {
-        //             semiColsCount++;
-        //         }
-        //         
-        //         if (semiColsCount == 2 && line[j] != ';')
-        //         {
-        //             quantityArr[tmp] = line[j];
-        //             tmp++;
-        //         }
-        //     }
-        //
-        //     var x = new string(quantityArr);
-        //     quantities.Add(int.Parse(x));
-        //
-        //     ///Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
-        //     // 
-        // }
-        //
-        //
-        // var result = 0;
-        // foreach (var quantityItem in quantities) result += quantityItem;
-        // Console.WriteLine("Result for group no. " + group + ": " + result);
+
+        var result = 0;
+        foreach (var quantity in quantities) result += quantity;
+
+        Console.WriteLine("Result: " + result);
+        Console.WriteLine("-----------------------------------------------------");
+
+        //Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
+        //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
     }
 
-    private void GetValue(List<string> fileContent, string group)
+    private void GetValue(List<string> lines)
     {
         Console.WriteLine("2 Works!");
     }
 
-    private void GetDate(List<string> fileContent, string group)
+    private void GetDate(List<string> lines)
     {
         Console.WriteLine("3 Works!");
     }

@@ -77,7 +77,7 @@ public class Source
                 _groups.Add(strGroup);
             }
         else
-            Console.WriteLine("<ERROR WITH COLUMNS IN FILE>");
+            Console.WriteLine("<ERROR>");
 
         return structCorrect;
     }
