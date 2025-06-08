@@ -11,11 +11,12 @@ internal class Program
         Console.Write("Write path to your file: ");
         var path = Console.ReadLine();
         var source = new Source(@path);
-        string option, group;
+        string option = "", group = "";
         var groupOk = false;
         var test = false;
 
         if (source.CheckFilesStructure)
+        {
             while (!test)
             {
                 test = true;
@@ -47,16 +48,14 @@ internal class Program
                         break;
                 }
 
-                // foreach (var x in Source.FileContent) Console.WriteLine(x);
-
                 string[] groupsStrings = source.Groups.ToArray();
-                
+
                 Console.Write("Avaliable groups: ");
                 foreach (var g in groupsStrings.Distinct())
                 {
                     Console.Write(g + ", ");
                 }
-                
+
                 Console.Write("\nSelect group: ");
                 group = Console.ReadLine();
 
@@ -74,16 +73,9 @@ internal class Program
                     Console.WriteLine("Group not found.");
                 }
             }
-
-
-        // Console.WriteLine("---------------------------------------------------------------------------------------------------------");
-        // Console.Write("Write path: ");
-        // string path = Console.ReadLine();
-        // var path =
-        //     "C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv";
-        // Console.WriteLine("---------------------------------------------------------------------------------------------------------");
-
-
-        // Source.FileContent => List<>
+            
+            RetrieveData retrieveData = new RetrieveData();
+            retrieveData.Data(option, group, source.FileContent);
+        }
     }
 }

@@ -7,13 +7,11 @@ public class Source
     private readonly Regex _pattern = new(@"\ABASE_\d{3}_\d{8}\.csv$");
     private static int tmp = 20;
     private readonly string _path;
-
     private char[] _fileNameChars = new char[tmp + 1];
     private List<char> _groupsChar = new();
-
-    private static List<string> _fileContent = new();
+    private List<string> _fileContent = new();
     private List<string> _groups = new();
-    public static List<string> FileContent => _fileContent;
+    public List<string> FileContent => _fileContent;
     public List<string> Groups => _groups;
 
     private bool CheckFilesStruct()
