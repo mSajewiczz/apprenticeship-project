@@ -47,37 +47,39 @@ public class RetrieveData
 
     private void GetQuantity(List<string> FileContent, string group)
     {
-        List<string> Quantities = new ();
-        
+        List<int> quantities = new ();
         var semiColsCount = 0;
         var counter = 0;
-
-        foreach (var line in FileContent)
-        {
-            
-        }
         
-        // for (var i = 0; i < FileContent.Count; i++)
-        // {
-        //     List<char> Quantity = new ();
-        //     string line = FileContent[i];
-        //
-        //     for (var j = 0; j < line.Length; j++)
-        //     {
-        //         if (line[j] == ';')
-        //         {
-        //             semiColsCount++;
-        //         }
-        //
-        //         if (semiColsCount == 2 && line[j] != ';')
-        //         {
-        //             Quantity.Add(line[j]);
-        //         }
-        //     }
-        //     
-        //     string quantity = Quantity.ToString();
-        //     Quantities.Add(quantity);
-        // }
+        
+        for (var i = 0; i < FileContent.Count; i++)
+        {
+            List<char> quantityArr = new ();
+            string line = FileContent[i];
+        
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';')
+                {
+                    semiColsCount++;
+                }
+        
+                if (semiColsCount == 2 && line[j] != ';')
+                {
+                    quantityArr.Add(line[j]);
+                }
+            }
+            ///Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
+            
+            var quantityStr = quantityArr; 
+            var quantity = int.Parse(quantityStr.ToArray());
+            quantities.Add(quantity);
+        }
+
+        foreach (var item in quantities)
+        {
+            Console.WriteLine(item);
+        }
         
     }
 
