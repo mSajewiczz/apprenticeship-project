@@ -47,7 +47,38 @@ public class RetrieveData
 
     private void GetQuantity(List<string> FileContent, string group)
     {
-        Console.WriteLine("1 Works!");
+        List<string> Quantities = new ();
+        
+        var semiColsCount = 0;
+        var counter = 0;
+
+        foreach (var line in FileContent)
+        {
+            
+        }
+        
+        // for (var i = 0; i < FileContent.Count; i++)
+        // {
+        //     List<char> Quantity = new ();
+        //     string line = FileContent[i];
+        //
+        //     for (var j = 0; j < line.Length; j++)
+        //     {
+        //         if (line[j] == ';')
+        //         {
+        //             semiColsCount++;
+        //         }
+        //
+        //         if (semiColsCount == 2 && line[j] != ';')
+        //         {
+        //             Quantity.Add(line[j]);
+        //         }
+        //     }
+        //     
+        //     string quantity = Quantity.ToString();
+        //     Quantities.Add(quantity);
+        // }
+        
     }
 
     private void GetValue(List<string> FileContent, string group)
