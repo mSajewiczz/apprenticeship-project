@@ -86,15 +86,15 @@ public class Source
 
     private string GetFileName()
     {
-        for (var i = _path.Length; i >= 0; i--)
-            if (_path[i - 1].Equals('B'))
+        for (var i = _path.Length; i > 0; i--)
+            if (_path[i-1].Equals('B'))
             {
-                _fileNameChars[tmp] = _path[i - 1];
+                _fileNameChars[tmp] = _path[i-1];
                 break;
             }
             else
             {
-                _fileNameChars[tmp] = _path[i - 1];
+                _fileNameChars[tmp] = _path[i-1];
                 tmp--;
             }
 
