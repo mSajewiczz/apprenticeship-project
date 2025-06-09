@@ -113,9 +113,9 @@ public class RetrieveData
     private void GetValue(List<string> lines)
     {
         var semiColsCount = 0;
-        var quantityLen = 0;
+        var valLen = 0;
 
-        var quantities = new double[lines.Count];
+        var values = new double[lines.Count];
 
         for (var i = 0; i < lines.Count; i++)
         {
@@ -124,10 +124,10 @@ public class RetrieveData
             {
                 if (line[j] == ';') semiColsCount++;
 
-                if (semiColsCount == 5 && line[j] != ';') quantityLen++;
+                if (semiColsCount == 5 && line[j] != ';') valLen++;
             }
 
-            var quantityCharArr = new char[quantityLen];
+            var valueCharArr = new char[valLen];
             var tmp = 0;
             semiColsCount = 0;
 
@@ -137,24 +137,24 @@ public class RetrieveData
 
                 if (semiColsCount == 5 && line[j] != ';' && line[j] != '.')
                 {
-                    quantityCharArr[tmp] = line[j];
+                    valueCharArr[tmp] = line[j];
                     tmp++;
                 }
                 else if (line[j] == '.')
                 {
-                    quantityCharArr[tmp] = ',';
+                    valueCharArr[tmp] = ',';
                     tmp++;
                 }
             }
 
-            var quantityStr = new string(quantityCharArr);
+            var valueStr = new string(valueCharArr);
 
-            var quantity = double.Parse(quantityStr);
-            quantities[i] = quantity;
+            var value = double.Parse(valueStr);
+            values[i] = value;
         }
 
         double result = 0;
-        foreach (var quantity in quantities) result += quantity;
+        foreach (var value in values) result += value;
 
         Console.WriteLine("Result: " + result);
         Console.WriteLine("-----------------------------------------------------");
@@ -218,6 +218,49 @@ public class RetrieveData
 
     private void GetValueOfFile(List<string> fileContent)
     {
-        Console.WriteLine("4 Works!");
+        var values = new double[fileContent.Count];
+        var semiColsCount = 0;
+        var valLen = 0;
+
+        for (var i = 1; i < fileContent.Count; i++)
+        {
+            var line = fileContent[i];
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';') valLen++;
+            }
+
+            var valueCharArr = new char[valLen];
+            var tmp = 0;
+            semiColsCount = 0;
+
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';' && line[j] != '.')
+                {
+                    valueCharArr[tmp] = line[j];
+                    tmp++;
+                }
+                else if (line[j] == '.')
+                {
+                    valueCharArr[tmp] = ',';
+                    tmp++;
+                }
+            }
+
+            var valueStr = new string(valueCharArr);
+            var value = double.Parse(valueStr);
+            values[i - 1] = value;
+        }
+
+        double result = 0;
+        foreach (var value in values) result += value;
+
+        Console.WriteLine("Sum of value for whole file: " + result);
+        Console.WriteLine("----------------------------------------------------");
     }
 }
