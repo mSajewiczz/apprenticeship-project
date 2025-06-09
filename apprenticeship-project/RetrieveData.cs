@@ -98,9 +98,7 @@ public class RetrieveData
             }
 
             var quantityStr = new string(quantityCharArr);
-
-            var quantity = int.Parse(quantityStr);
-            quantities[i] = quantity;
+            quantities[i] = int.Parse(quantityStr);
         }
 
         var result = 0;
@@ -148,9 +146,7 @@ public class RetrieveData
             }
 
             var valueStr = new string(valueCharArr);
-
-            var value = double.Parse(valueStr);
-            values[i] = value;
+            values[i] = double.Parse(valueStr);
         }
 
         double result = 0;
@@ -240,27 +236,21 @@ public class RetrieveData
             {
                 if (line[j] == ';') semiColsCount++;
 
-                if (semiColsCount == 5 && line[j] != ';' && line[j] != '.')
+                if (semiColsCount == 5 && line[j] != ';')
                 {
                     valueCharArr[tmp] = line[j];
-                    tmp++;
-                }
-                else if (line[j] == '.')
-                {
-                    valueCharArr[tmp] = ',';
                     tmp++;
                 }
             }
 
             var valueStr = new string(valueCharArr);
-            var value = double.Parse(valueStr);
-            values[i - 1] = value;
+            values[i - 1] = double.Parse(valueStr);
         }
 
         double result = 0;
         foreach (var value in values) result += value;
 
-        Console.WriteLine("Sum of value for whole file: " + result);
+        Console.WriteLine("Sum of value for whole file: " + Math.Round(result, 2));
         Console.WriteLine("----------------------------------------------------");
     }
 }
