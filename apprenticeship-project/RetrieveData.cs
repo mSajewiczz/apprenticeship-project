@@ -108,9 +108,6 @@ public class RetrieveData
 
         Console.WriteLine("Result: " + result);
         Console.WriteLine("-----------------------------------------------------");
-
-        //Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
-        //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
     }
 
     private void GetValue(List<string> lines)
@@ -172,66 +169,51 @@ public class RetrieveData
             var dateArr = new char[10];
             var tmp = 0;
             var line = lines[i];
-            
+
             for (var j = 0; j < line.Length; j++)
             {
-                if (line[j] == ';')
-                {
-                    semiColsCount++;
-                }
-        
+                if (line[j] == ';') semiColsCount++;
+
                 if (semiColsCount == 3 && line[j] != ';')
                 {
                     dateArr[tmp] = line[j];
                     tmp++;
                 }
-        
-                if (semiColsCount > 3)
-                {
-                    break;
-                }
+
+                if (semiColsCount > 3) break;
             }
-        
+
             dates[i] = new string(dateArr);
         }
 
-        DateTime maxDate = new DateTime();
-        DateTime currentDate = new DateTime();
-        DateTime minDate = new DateTime();
-        
-        // DateTime maxDate = DateTime.Parse(dateString);
-        // DateTime minDate = DateTime.Parse(dateString2);
-        
-        // Console.WriteLine("IS DATE GREATER: " + (date1 > date2));
+        var maxDate = new DateTime();
+        var currentDate = new DateTime();
+        var minDate = new DateTime();
 
         var iterations = true;
-        
+
         foreach (var date in dates)
         {
             currentDate = DateTime.Parse(date);
-            
+
             if (iterations)
             {
                 maxDate = DateTime.Parse(date);
                 iterations = false;
             }
-            else if(maxDate < currentDate)
-            {
+
+            if (maxDate < currentDate)
                 maxDate = currentDate;
-            }
             else
-            {
                 minDate = currentDate;
-            }
         }
-        
+
         Console.WriteLine("Max Date: " + maxDate.ToString("yyyy-MM-dd"));
         Console.WriteLine("Min Date: " + minDate.ToString("yyyy-MM-dd"));
-        
-        //Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
-        //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
+        Console.WriteLine("-----------------------------------------------------");
 
-        // foreach (var date in dates) Console.WriteLine("Date: " + date);
+        // /Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
+        // C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
     }
 
     private void GetValueOfFile(List<string> fileContent)
