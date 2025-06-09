@@ -1,419 +1,253 @@
 ﻿using System.Collections.Specialized;
 
 namespace apprenticeship_project;
+
 using System.IO;
 
 public class RetrieveData
 {
-    public void prepareData(string group, string option)
+    public void Data(string option, string group, List<string> fileContent)
     {
-        int lineCounter = 0;
-        int counterOfLines = 0;
+        var lines = new List<string>();
+        var groupLen = 0;
+        for (var k = 0; k < group.Length; k++) groupLen++;
 
-        String line;
-        StreamReader file = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
-        line = file.ReadLine();
-
-        string[] lines = {};
-        int tmp = 0;
-
-        while (line != null)
+        for (var i = 0; i < fileContent.Count; i++)
         {
-                for (int i = 0; i < line.Length; i++)
-                {
-                    if (line[i] == ';' && line[i + 1] == group[0] && line[i + 2] == group[1] &&
-                        line[i + 3] == group[2])
-                    {
-                        counterOfLines++;
-                    }
-                }
-                
-            line = file.ReadLine();
-            lineCounter++;
-        }
-        file.Close();
-        lines = new string[counterOfLines];
+            var tmp = 0;
+            var fileLine = fileContent[i];
+            var semiColsCount = 0;
 
-        String line2;
-        StreamReader file2 = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
-        line2 = file2.ReadLine();
-        while (line2 != null)
-        {
-            for (int i = 0; i < line2.Length; i++)
+            for (var j = 0; j < fileLine.Length; j++)
             {
-                if (line2[i] == ';' && line2[i + 1] == group[0] && line2[i + 2] == group[1] &&
-                    line2[i + 3] == group[2])
+                if (fileLine[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 4 && fileLine[j] == group[tmp]) tmp++;
+            }
+
+            if (tmp == groupLen) lines.Add(fileLine);
+        }
+
+        var checkOption = false;
+        while (!checkOption)
+        {
+            checkOption = true;
+
+            switch (option)
+            {
+                case "0":
+                    Console.WriteLine("Bye!");
+                    break;
+                case "1":
+                    GetQuantity(lines);
+                    break;
+                case "2":
+                    GetValue(lines);
+                    break;
+                case "3":
+                    GetDate(lines);
+                    break;
+                case "4":
+                    GetValueOfFile(fileContent);
+                    break;
+                default:
+                    Console.WriteLine("Invalid option. Try again.");
+                    checkOption = false;
+                    break;
+            }
+
+            if (!checkOption)
+            {
+                Console.Write("Select option: ");
+                option = Console.ReadLine();
+                Console.WriteLine("-----------------------------------------------------");
+            }
+        }
+    }
+
+    private void GetQuantity(List<string> lines)
+    {
+        var semiColsCount = 0;
+        var quantityLen = 0;
+
+        var quantities = new int[lines.Count];
+
+        for (var i = 0; i < lines.Count; i++)
+        {
+            var line = lines[i];
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 2 && line[j] != ';') quantityLen++;
+            }
+
+            var quantityCharArr = new char[quantityLen];
+            var tmp = 0;
+            semiColsCount = 0;
+
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 2 && line[j] != ';')
                 {
-                    lines[tmp] = line2;
+                    quantityCharArr[tmp] = line[j];
                     tmp++;
                 }
             }
-            line2 = file2.ReadLine();
-            lineCounter++;
-        }
-        file.Close();
 
-        switch (option)
-        {
-            case "1":
-                GetQuantity(lines, group); 
-                break;
-            case "2":
-                GetValue(lines, group);
-                break;
-            case "3":
-                Sort(lines, group);
-                break;
-            case "4":
-                GetWholeValue();
-                break;
+            var quantityStr = new string(quantityCharArr);
+            quantities[i] = int.Parse(quantityStr);
         }
+
+        var result = 0;
+        foreach (var quantity in quantities) result += quantity;
+
+        Console.WriteLine("Result: " + result);
+        Console.WriteLine("-----------------------------------------------------");
     }
 
-    public void GetQuantity(string[] lines, string group)
+    private void GetValue(List<string> lines)
     {
-        int linesLen = lines.Length;
-        
-        int[] tabOfAllQuantities = new int[linesLen];
-        
-        for (int i = 0; i < linesLen; i++)
+        var semiColsCount = 0;
+        var valLen = 0;
+
+        var values = new double[lines.Count];
+
+        for (var i = 0; i < lines.Count; i++)
         {
-            string line = lines[i];
-            int lengthOfQuantity = 0;
-            int semiColsCount = 0;
-            
-            for (int j = 0; j < line.Length; j++)
+            var line = lines[i];
+            for (var j = 0; j < line.Length; j++)
             {
-                if (line[j] == ';')
-                {
-                    semiColsCount++;
-                }
-                
-                if (semiColsCount == 2)
-                {
-                        if (line[j] != ';')
-                        {
-                            lengthOfQuantity++;
-                        }
-                } else if (semiColsCount > 2)
-                {
-                    break;
-                }
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';') valLen++;
             }
-            
+
+            var valueCharArr = new char[valLen];
+            var tmp = 0;
             semiColsCount = 0;
-            
-            char[] array = new char[lengthOfQuantity];
-            int tmp = 0;
 
-            for (int k = 0; k < line.Length; k++)
+            for (var j = 0; j < line.Length; j++)
             {
-                if (line[k] == ';')
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';' && line[j] != '.')
                 {
-                    semiColsCount++;
+                    valueCharArr[tmp] = line[j];
+                    tmp++;
                 }
-                
-                if (semiColsCount == 2)
+                else if (line[j] == '.')
                 {
-                    if (line[k] != ';')
-                    {
-                        array[tmp] = line[k];
-                        tmp++;
-                    }
-                    
-                } else if (semiColsCount > 2)
-                {
-                    break;
+                    valueCharArr[tmp] = ',';
+                    tmp++;
                 }
             }
-            
-            string test = new string(array);
-            int testValInt = int.Parse(test);
-            
-            tabOfAllQuantities[i] = testValInt;
+
+            var valueStr = new string(valueCharArr);
+            values[i] = double.Parse(valueStr);
         }
 
-        int sum = 0;
-        
-        for(int l = 0; l < tabOfAllQuantities.Length; l++)
-        {
-            sum = sum + tabOfAllQuantities[l];
-        }
-        
-        Console.WriteLine("Quantity for group no. " + group + " is: " + sum);
+        double result = 0;
+        foreach (var value in values) result += value;
+
+        Console.WriteLine("Result: " + result);
+        Console.WriteLine("-----------------------------------------------------");
     }
 
-    public void GetValue(string[] lines, string group)
+    private void GetDate(List<string> lines)
     {
-        int linesLen = lines.Length;
-        
-        double[] tabOfAllValues = new double[linesLen];
-        
-        for (int i = 0; i < linesLen; i++)
+        var dates = new string[lines.Count];
+        for (var i = 0; i < lines.Count; i++)
         {
-            string line = lines[i];
-            int lengthOfQuantity = 0;
-            int semiColsCount = 0;
-            
-            for (int j = 0; j < line.Length; j++)
+            var semiColsCount = 0;
+            var dateArr = new char[10];
+            var tmp = 0;
+            var line = lines[i];
+
+            for (var j = 0; j < line.Length; j++)
             {
-                if (line[j] == ';')
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 3 && line[j] != ';')
                 {
-                    semiColsCount++;
+                    dateArr[tmp] = line[j];
+                    tmp++;
                 }
-                
-                if (semiColsCount == 5)
-                {
-                    if (line[j] != ';')
-                    {
-                        lengthOfQuantity++;
-                    }
-                } else if (semiColsCount > 5)
-                {
-                    break;
-                }
+
+                if (semiColsCount > 3) break;
             }
-            
+
+            dates[i] = new string(dateArr);
+        }
+
+        var maxDate = new DateTime();
+        var currentDate = new DateTime();
+        var minDate = new DateTime();
+
+        var iterations = true;
+
+        foreach (var date in dates)
+        {
+            currentDate = DateTime.Parse(date);
+
+            if (iterations)
+            {
+                maxDate = DateTime.Parse(date);
+                iterations = false;
+            }
+
+            if (maxDate < currentDate)
+                maxDate = currentDate;
+            else
+                minDate = currentDate;
+        }
+
+        Console.WriteLine("Max Date: " + maxDate.ToString("yyyy-MM-dd"));
+        Console.WriteLine("Min Date: " + minDate.ToString("yyyy-MM-dd"));
+        Console.WriteLine("-----------------------------------------------------");
+    }
+
+    private void GetValueOfFile(List<string> fileContent)
+    {
+        var values = new double[fileContent.Count];
+        var semiColsCount = 0;
+        var valLen = 0;
+
+        for (var i = 1; i < fileContent.Count; i++)
+        {
+            var line = fileContent[i];
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';') valLen++;
+            }
+
+            var valueCharArr = new char[valLen];
+            var tmp = 0;
             semiColsCount = 0;
-            
-            char[] array = new char[lengthOfQuantity];
-            int tmp = 0;
 
-            for (int k = 0; k < line.Length; k++)
+            for (var j = 0; j < line.Length; j++)
             {
-                if (line[k] == ';')
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 5 && line[j] != ';')
                 {
-                    semiColsCount++;
-                }
-                
-                if (semiColsCount == 5)
-                {
-                    if (line[k] != ';')
-                    {
-                        if (line[k] == '.')
-                        {
-                            array[tmp] = ',';
-                        }
-                        else
-                        {
-                            array[tmp] = line[k];
-                        }
-                        tmp++;
-                    }
-                    
-                } else if (semiColsCount > 5)
-                {
-                    break;
-                }
-            }
-            
-            string test = new string(array);
-            double testValInt = double.Parse(test);
-            tabOfAllValues[i] = testValInt;
-        }
-
-        double sum = 0;
-        
-        for(int l = 0; l < tabOfAllValues.Length; l++)
-        {
-            sum = sum + tabOfAllValues[l];
-        }
-        
-        Console.WriteLine("Value for group no. " + group + " is: " + sum);
-    }
-
-    public void Sort(string[] lines, string group)
-    {
-        List<string> date = new List<string>();
-        
-
-        for (int i = 0; i < lines.Length; i++)
-        {
-            int semiColsCount = 0;
-            string line = lines[i];
-
-            char[] dateArr = new char[10];
-            int tmp = 0;
-
-            for (int j = 0; j < line.Length; j++)
-            {
-                if (line[j] == ';')
-                {
-                    semiColsCount++;
-                }
-
-                if (semiColsCount == 3)
-                {
-                    if (line[j] != ';')
-                    {
-                        dateArr[tmp] = line[j];
-                        tmp++;
-                    }
-                }
-
-                if (semiColsCount > 3)
-                {
-                    break;
+                    valueCharArr[tmp] = line[j];
+                    tmp++;
                 }
             }
 
-            string dateStr = new string(dateArr);
-            date.Add(dateStr);
-        }
-        
-        bool isEmpty = false;
-
-        string max = "";
-        string min = "";
-        
-        max = date[0];
-        
-        for (int i = 0; i < date.Count; i++)
-        {
-            string lineVal = date[i];
-            for (int j = 0; j < lineVal.Length; j++)
-            {
-                if (max[0] < lineVal[0])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[1] < lineVal[1])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[2] < lineVal[2])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[3] < lineVal[3])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[5] < lineVal[5])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[6] < lineVal[6])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[8] < lineVal[8])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else if (max[9] < lineVal[9] && max[8] < lineVal[8])
-                {
-                    max = lineVal;
-                    break;
-                }
-                else
-                {
-                    min = lineVal;
-                    break;
-                }
-            }
+            var valueStr = new string(valueCharArr);
+            values[i - 1] = double.Parse(valueStr);
         }
 
-        Console.WriteLine("Max: " + max);
-        Console.WriteLine("Min: " + min);
-    }
-    
-    public void GetWholeValue()
-    {
-        StreamReader file = new StreamReader("C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv");
-        String line = file.ReadLine();
-        
-        List<string> lines = new List<string>();
-        int tmp = 0;
-        
-        while (line != null)
-        {
-            if (tmp != 0)
-            {
-                lines.Add(line);
-            }
+        double result = 0;
+        foreach (var value in values) result += value;
 
-            tmp++;
-            line = file.ReadLine();
-        }
-
-        double[] allValuesFromFile = new double[lines.Count];
-
-        for (int i = 0; i < lines.Count; i++)
-        {
-            int semiColsCounter = 0;
-            char[] valueChar = {};
-            string val = lines[i];
-            int valLen = 0;
-            
-            for (int j = 0; j < val.Length; j++)
-            {
-                if (val[j] == ';')
-                {
-                    semiColsCounter++;
-                }
-
-                if (semiColsCounter == 5)
-                {
-                    if (val[j] != ';')
-                    {
-                        valLen++;
-                    }
-                }
-            }
-            
-            int tmp1 = 0;
-            semiColsCounter = 0;
-            
-            valueChar = new char[valLen];
-            for (int k = 0; k < val.Length; k++)
-            {
-                if (val[k] == ';')
-                {
-                    semiColsCounter++;
-                }
-            
-                if (semiColsCounter == 5)
-                {
-                    if (val[k] != ';')
-                    {
-                        if (val[k] == '.')
-                        {
-                            valueChar[tmp1] = ',';
-                        }
-                        else
-                        {
-                            valueChar[tmp1] = val[k];
-                        }
-                        tmp1++;
-                    }
-                }
-            
-                if (semiColsCounter > 5)
-                {
-                    break;
-                }
-            }
-            string strVal = new string(valueChar);
-            double numVal = double.Parse(strVal);
-
-            allValuesFromFile[i] = numVal;
-        }
-
-        double sum = 0; 
-        foreach (var val in allValuesFromFile)
-        {
-            sum += val;
-        }
-        
-        Console.WriteLine("Sum of value of whole file: " + Math.Round(sum, 2));
-        file.Close();
+        Console.WriteLine("Sum of value for whole file: " + Math.Round(result, 2));
+        Console.WriteLine("----------------------------------------------------");
     }
 }
