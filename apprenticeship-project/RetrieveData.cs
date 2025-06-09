@@ -207,9 +207,6 @@ public class RetrieveData
         Console.WriteLine("Max Date: " + maxDate.ToString("yyyy-MM-dd"));
         Console.WriteLine("Min Date: " + minDate.ToString("yyyy-MM-dd"));
         Console.WriteLine("-----------------------------------------------------");
-
-        // /Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
-        // C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
     }
 
     private void GetValueOfFile(List<string> fileContent)

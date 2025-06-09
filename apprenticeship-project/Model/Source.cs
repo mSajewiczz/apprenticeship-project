@@ -122,8 +122,5 @@ public class Source
             Console.WriteLine("Unknown file format. Try again.");
 
         Console.WriteLine("-----------------------------------------------------");
-
-        // Console.WriteLine("Correct struct: " + CheckFilesStruct());
-        // foreach (var group in _groups) Console.WriteLine("Group: " + group);
     }
 }
