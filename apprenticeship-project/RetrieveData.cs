@@ -166,17 +166,6 @@ public class RetrieveData
     private void GetDate(List<string> lines)
     {
         var dates = new string[lines.Count];
-        
-        string dateString = "2023-03-11"; 
-
-        DateTime date1 = DateTime.Parse(dateString);
-        DateTime parsedDate;
-
-        if (DateTime.TryParse(dateString, out parsedDate)) 
-        { 
-            Console.WriteLine("Parsed date: " + parsedDate.ToString()); 
-        } 
-
         for (var i = 0; i < lines.Count; i++)
         {
             var semiColsCount = 0;
@@ -190,25 +179,59 @@ public class RetrieveData
                 {
                     semiColsCount++;
                 }
-
+        
                 if (semiColsCount == 3 && line[j] != ';')
                 {
                     dateArr[tmp] = line[j];
                     tmp++;
                 }
-
+        
                 if (semiColsCount > 3)
                 {
                     break;
                 }
             }
-
+        
             dates[i] = new string(dateArr);
         }
+
+        DateTime maxDate = new DateTime();
+        DateTime currentDate = new DateTime();
+        DateTime minDate = new DateTime();
+        
+        // DateTime maxDate = DateTime.Parse(dateString);
+        // DateTime minDate = DateTime.Parse(dateString2);
+        
+        // Console.WriteLine("IS DATE GREATER: " + (date1 > date2));
+
+        var iterations = true;
+        
+        foreach (var date in dates)
+        {
+            currentDate = DateTime.Parse(date);
+            
+            if (iterations)
+            {
+                maxDate = DateTime.Parse(date);
+                iterations = false;
+            }
+            else if(maxDate < currentDate)
+            {
+                maxDate = currentDate;
+            }
+            else
+            {
+                minDate = currentDate;
+            }
+        }
+        
+        Console.WriteLine("Max Date: " + maxDate.ToString("yyyy-MM-dd"));
+        Console.WriteLine("Min Date: " + minDate.ToString("yyyy-MM-dd"));
+        
         //Users/mikolajsajewicz/Documents/everything to restore/my-code-base/cs/apprenticeship-project/apprenticeship-project/BASE_123_20250516.csv
         //C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv
 
-        foreach (var date in dates) Console.WriteLine("Date: " + date);
+        // foreach (var date in dates) Console.WriteLine("Date: " + date);
     }
 
     private void GetValueOfFile(List<string> fileContent)
