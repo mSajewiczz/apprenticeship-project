@@ -43,13 +43,7 @@ public class DataController
                 if (splitedFileContent[4] == group) lines.Add(fileContent[i]);
             }
 
-            for (var i = 0; i < lines.Count; i++)
-            {
-                var line = lines[i];
-                var lineModel = new LineModel(line);
-
-                linesModel.Add(lineModel);
-            }
+            
         }
         else
         {
@@ -58,6 +52,14 @@ public class DataController
                 if (counter > 0) lines.Add(line);
                 counter++;
             }
+        }
+        
+        for (var i = 0; i < lines.Count; i++)
+        {
+            var line = lines[i];
+            var lineModel = new LineModel(line);
+
+            linesModel.Add(lineModel);
         }
 
         switch (option)
