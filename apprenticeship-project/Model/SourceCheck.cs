@@ -2,7 +2,7 @@
 
 namespace apprenticeship_project.Model;
 
-public class Source
+public class SourceCheck
 {
     private readonly Regex _pattern = new(@"\ABASE_\d{3}_\d{8}\.csv$");
     private static int tmp = 20;
@@ -101,7 +101,7 @@ public class Source
 
     public bool CheckFilesStructure => CheckFilesStruct();
 
-    public Source(string path)
+    public SourceCheck(string path)
     {
         _path = path;
         var fileName = GetFileName();
@@ -122,8 +122,5 @@ public class Source
             Console.WriteLine("Unknown file format. Try again.");
 
         Console.WriteLine("-----------------------------------------------------");
-
-        // Console.WriteLine("Correct struct: " + CheckFilesStruct());
-        // foreach (var group in _groups) Console.WriteLine("Group: " + group);
     }
 }

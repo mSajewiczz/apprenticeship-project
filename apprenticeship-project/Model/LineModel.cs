@@ -1,11 +1,11 @@
-﻿namespace apprenticeship_project;
+﻿namespace apprenticeship_project.Model;
 
 public class LineModel
 {
-    private string _group = "";
-    private DateTime _date = new();
-    private double _quantity = 0.0;
-    private double _value = 0.0;
+    private string _group;
+    private DateTime _date;
+    private double _quantity;
+    private double _value;
     public string Group => _group;
     public DateTime Date => _date;
     public double Quantity => _quantity;
