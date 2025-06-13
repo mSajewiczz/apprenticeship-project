@@ -77,7 +77,7 @@ public class SourceCheck
                 _groups.Add(strGroup);
             }
         else
-            Console.WriteLine("<ERROR>");
+            Console.WriteLine("Unknown file structure.");
 
         return structCorrect;
     }
@@ -120,7 +120,5 @@ public class SourceCheck
             }
         else
             Console.WriteLine("Unknown file format. Try again.");
-
-        Console.WriteLine("-----------------------------------------------------");
     }
 }

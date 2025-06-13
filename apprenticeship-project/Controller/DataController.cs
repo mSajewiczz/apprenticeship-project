@@ -8,33 +8,39 @@ public class DataController
     {
         Console.WriteLine("--CSV files analyse app--");
         Console.Write("Write path to your file: ");
-        var path = Console.ReadLine();
 
+        var path = Console.ReadLine();
         var source = new SourceCheck(@path);
         var lines = new List<string>();
         var linesModel = new List<LineModel>();
         var linesModelAll = new List<LineModel>();
         var checkFileStruct = source.CheckFilesStructure;
         var fileContent = source.FileContent;
+        var groups = source.Groups;
 
-        if (checkFileStruct)
+        var group = "";
+        var counter = 0;
+
+        if (!checkFileStruct) return;
+
+        Console.WriteLine("----------------------------------------------------------------------------");
+        Console.WriteLine(
+            "Select option: 1 - Get value of group, 2 - Get quantity of group, 3 - Get min/max date of group, 4 - Get value of whole file, 5 - exit");
+        Console.Write("Option: ");
+        var option = Console.ReadLine();
+        Console.WriteLine("----------------------------------------------------------------------------");
+
+        Console.Write("Groups: ");
+        Console.WriteLine(string.Join(", ", groups) + ".");
+        Console.Write("Select group: ");
+        group = Console.ReadLine();
+        Console.WriteLine("----------------------------------------------------------------------------");
+        if (option != "4")
         {
-            Console.Write("Group: ");
-            var group = "";
-            group = Console.ReadLine();
-
-            // for (var i = 0; i < fileContent.Count; i++)
-            // {
-            //     var splitedFileContent = fileContent[i].Split(';');
-            //     if (splitedFileContent[4] == group) lines.Add(fileContent[i]);
-            // }
-
-            var counter = 0;
-            foreach (var line in fileContent)
+            for (var i = 0; i < fileContent.Count; i++)
             {
-                if (counter > 0) lines.Add(line);
-
-                counter++;
+                var splitedFileContent = fileContent[i].Split(';');
+                if (splitedFileContent[4] == group) lines.Add(fileContent[i]);
             }
 
             for (var i = 0; i < lines.Count; i++)
@@ -44,15 +50,38 @@ public class DataController
 
                 linesModel.Add(lineModel);
             }
-
-            // GetQuantity(linesModel, group);
-            // GetValue(linesModel, group);
-            // GetDate(linesModel, group);
-            GetValueOfFile(linesModel);
         }
         else
         {
-            Console.WriteLine("Unknown file structure.");
+            foreach (var line in fileContent)
+            {
+                if (counter > 0) lines.Add(line);
+                counter++;
+            }
+        }
+
+        switch (option)
+        {
+            case "1":
+                GetValue(linesModel, group);
+                break;
+            case "2":
+                GetQuantity(linesModel, group);
+                break;
+            case "3":
+                GetDate(linesModel, group);
+                break;
+            case "4":
+                GetValueOfFile(linesModel);
+                break;
+            case "5":
+                Console.WriteLine("Bye.");
+                Console.WriteLine("----------------------------------------------------------------------------");
+                return;
+            default:
+                Console.WriteLine("Unknown option.");
+                Console.WriteLine("----------------------------------------------------------------------------");
+                return;
         }
     }
 
