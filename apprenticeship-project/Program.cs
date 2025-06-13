@@ -8,7 +8,7 @@ internal class Program
     private static void Main(string[] args)
     {
 
-        LineModel lineModel = new LineModel("1;Produkt 1;10;2025-05-10;111;1,23");
+        LineModel lineModel = new LineModel("1;Produkt 1;10;2025-05-10;111;1.23");
         
         Console.WriteLine("Group: " + lineModel.Group);
         Console.WriteLine("Date: " + lineModel.Date);

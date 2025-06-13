@@ -4,8 +4,8 @@ public class LineModel
 {
     private string _group = "";
     private DateTime _date = new();
-    private double _quantity = 0;
-    private double _value = 0;
+    private double _quantity = 0.0;
+    private double _value = 0.0;
 
     public string Group => _group;
     public DateTime Date => _date;
@@ -41,7 +41,8 @@ public class LineModel
             }
             else if (counter == 5)
             {
-                value = item;
+                var correctItem = item.Replace('.', ',');
+                value = correctItem;
             }
 
             counter++;
