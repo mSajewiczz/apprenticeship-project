@@ -7,8 +7,37 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        var path = @"C:\\Users\\mikol\\Desktop\\my_code_base\\projects\\apprenticeship-project\\apprenticeship-project\\BASE_123_20250516.csv";
+        var source = new Source(@path);
 
-        LineModel lineModel = new LineModel("1;Produkt 1;10;2025-05-10;111;1.23");
+        
+        List<string> lines = new List<string>();
+        var checkFileStruct = source.CheckFilesStructure;
+        var fileContent = source.FileContent;
+        var group = "";
+        
+        if (checkFileStruct)
+        {
+            Console.WriteLine("Group: ");
+            group = Console.ReadLine();
+            
+
+            for (var i = 0; i < fileContent.Count; i++)
+            {
+                var splitedFileContent = fileContent[i].Split(';');
+                if (splitedFileContent[4] == group)
+                {
+                 lines.Add(fileContent[i]);   
+                }
+            }
+
+            foreach (var line in lines)
+            {
+                Console.WriteLine("Linia: " + line);
+            }
+        }
+
+        LineModel lineModel = new LineModel("");
         
         Console.WriteLine("Group: " + lineModel.Group);
         Console.WriteLine("Date: " + lineModel.Date);
