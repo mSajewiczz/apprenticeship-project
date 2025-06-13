@@ -38,7 +38,7 @@ public class DataController
             
             GetQuantity(linesModel, group);
             GetValue(linesModel, group);
-            // GetDate(linesModel, group);
+            GetDate(linesModel, group);
             // GetValueOfFile(linesModel, group);
         }
         else
@@ -46,8 +46,6 @@ public class DataController
             Console.WriteLine("Unknown file structure.");
         }
     }
-
-
     private void GetQuantity(List<LineModel> lines, string group)
     {
         var result = 0.0;
@@ -74,7 +72,28 @@ public class DataController
 
     private void GetDate(List<LineModel> lines, string group)
     {
+        var maxDate = new DateTime();
+        var minDate = new DateTime();
         
+        for (var i = 0; i < lines.Count; i++)
+        {
+            if (i == 0)
+            {
+                maxDate = lines[i].Date;
+            }
+            
+            if (maxDate < lines[i].Date)
+            {
+                maxDate = lines[i].Date;
+            }
+            else
+            {
+                minDate = lines[i].Date;
+            }
+        }
+        Console.WriteLine("Group: " + group);
+        Console.WriteLine("Max date: " + maxDate.ToString("yyyy-MM-dd"));
+        Console.WriteLine("Min date: " + minDate.ToString("yyyy-MM-dd"));
     }
 
     private void GetValueOfFile(List<LineModel> lines, string group)
