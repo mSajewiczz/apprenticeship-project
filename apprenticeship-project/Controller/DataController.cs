@@ -29,31 +29,60 @@ public class DataController
         Console.Write("Option: ");
         var option = Console.ReadLine();
         Console.WriteLine("----------------------------------------------------------------------------");
-
-        Console.Write("Groups: ");
-        Console.WriteLine(string.Join(", ", groups) + ".");
-        Console.Write("Select group: ");
-        group = Console.ReadLine();
-        Console.WriteLine("----------------------------------------------------------------------------");
-        if (option != "4")
-        {
-            for (var i = 0; i < fileContent.Count; i++)
-            {
-                var splitedFileContent = fileContent[i].Split(';');
-                if (splitedFileContent[4] == group) lines.Add(fileContent[i]);
-            }
-
-            
-        }
-        else
+        
+        if (option == "4")
         {
             foreach (var line in fileContent)
             {
                 if (counter > 0) lines.Add(line);
                 counter++;
             }
+            
+            for (var i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                var lineModel = new LineModel(line);
+
+                linesModel.Add(lineModel);
+            }
+            
+            GetValueOfFile(linesModel);
+            return;
+        } else if (option == "5")
+        {
+            Console.WriteLine("Bye.");
+            Console.WriteLine("----------------------------------------------------------------------------");
+            return;
+        }
+
+        var groupCheck = false;
+        Console.Write("Groups: ");
+        Console.WriteLine(string.Join(", ", groups) + ".");
+        Console.Write("Select group: ");
+        group = Console.ReadLine();
+        Console.WriteLine("----------------------------------------------------------------------------");
+
+        foreach (var groupItem in groups)
+        {
+            if (groupItem == group)
+            {
+                groupCheck = true;
+            }
+        }
+
+        if (!groupCheck)
+        {
+            Console.WriteLine("Error. Unknown group.");
         }
         
+        
+        for (var i = 0; i < fileContent.Count; i++)
+        {
+            var splitedFileContent = fileContent[i].Split(';');
+            if (splitedFileContent[4] == group) lines.Add(fileContent[i]);
+        }
+
+
         for (var i = 0; i < lines.Count; i++)
         {
             var line = lines[i];
@@ -73,15 +102,8 @@ public class DataController
             case "3":
                 GetDate(linesModel, group);
                 break;
-            case "4":
-                GetValueOfFile(linesModel);
-                break;
-            case "5":
-                Console.WriteLine("Bye.");
-                Console.WriteLine("----------------------------------------------------------------------------");
-                return;
             default:
-                Console.WriteLine("Unknown option.");
+                Console.WriteLine("Error. Unknown option.");
                 Console.WriteLine("----------------------------------------------------------------------------");
                 return;
         }

@@ -76,9 +76,6 @@ public class SourceCheck
                 var strGroup = new string(charGroup);
                 _groups.Add(strGroup);
             }
-        else
-            Console.WriteLine("Unknown file structure.");
-
         return structCorrect;
     }
 
@@ -116,9 +113,9 @@ public class SourceCheck
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error. Something went wrong.");
+                Console.WriteLine("Error. Wrong path to file.");
             }
         else
-            Console.WriteLine("Unknown file format. Try again.");
+            Console.WriteLine("Error. Unknown filename format.");
     }
 }
