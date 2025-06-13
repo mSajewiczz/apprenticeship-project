@@ -12,27 +12,28 @@ public class AppController
         var pattern = dataModel.Pattern;
         var checkFileStructure = false;
         var getFileName = dataModel.GetFileName;
-
-        var message = "";
+        var check = false;
+        var response = "";
 
         if (pattern.IsMatch(getFileName))
         {
             checkFileStructure = dataModel.CheckFileStruct;
+            check = true;
         }
         else
         {
-            message = "Wrong file name.";
+            response = "Wrong file name.";
         }
 
-        if (checkFileStructure)
+        if (checkFileStructure && check)
         {
-            
+            response = "OK";
         }
         else
         {
-            message = "Wrong file structure.";
+            response = "Wrong file structure.";
         }
         
-        UserInterface userInterface = new UserInterface(message);
+        var userInterface = new UserInterface(response);
     }
 }

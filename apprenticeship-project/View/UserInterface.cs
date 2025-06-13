@@ -2,8 +2,17 @@
 
 public class UserInterface
 {
-    public UserInterface(string message)
+    public UserInterface(string response)
     {
-        Console.WriteLine(message);
+        if (response == "OK")
+        {
+            
+        }
+        else
+        {
+            Console.WriteLine(response);
+        }
+        
+        
     }
 }

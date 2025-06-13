@@ -31,7 +31,7 @@ public class DataModel
         //returns name of file as string
         return new string(_fileNameChars);
     }
-    
+
     private bool _checkFileStruct()
     {
         var structCorrect = false;
