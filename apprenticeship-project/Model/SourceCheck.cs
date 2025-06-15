@@ -38,44 +38,49 @@ public class SourceCheck
             }
         }
 
-        if (structCorrect)
-            for (var i = 1; i < _fileContent.Count; i++)
+        if (!structCorrect)
+        {
+            structCorrect = false;
+            return structCorrect;
+        }
+
+        for (var i = 1; i < _fileContent.Count; i++)
+        {
+            semiColsCount = 0;
+            var size = 0;
+            var line = _fileContent[i];
+
+            char[] charGroup = { };
+
+            for (var j = 0; j < line.Length; j++)
             {
-                semiColsCount = 0;
-                var size = 0;
-                var line = _fileContent[i];
+                if (line[j] == ';') semiColsCount++;
 
-                char[] charGroup = { };
-
-                for (var j = 0; j < line.Length; j++)
+                if (semiColsCount == 4 && line[j] != ';')
                 {
-                    if (line[j] == ';') semiColsCount++;
-
-                    if (semiColsCount == 4 && line[j] != ';')
-                    {
-                        size++;
-                        _groupsChar.Add(line[j + 1]);
-                    }
+                    size++;
+                    _groupsChar.Add(line[j + 1]);
                 }
-
-                charGroup = new char[size];
-                var tmp2 = 0;
-
-                semiColsCount = 0;
-                for (var j = 0; j < line.Length; j++)
-                {
-                    if (line[j] == ';') semiColsCount++;
-
-                    if (semiColsCount == 4 && line[j] != ';')
-                    {
-                        charGroup[tmp2] = line[j];
-                        tmp2++;
-                    }
-                }
-
-                var strGroup = new string(charGroup);
-                _groups.Add(strGroup);
             }
+
+            charGroup = new char[size];
+            var tmp2 = 0;
+
+            semiColsCount = 0;
+            for (var j = 0; j < line.Length; j++)
+            {
+                if (line[j] == ';') semiColsCount++;
+
+                if (semiColsCount == 4 && line[j] != ';')
+                {
+                    charGroup[tmp2] = line[j];
+                    tmp2++;
+                }
+            }
+
+            var strGroup = new string(charGroup);
+            _groups.Add(strGroup);
+        }
         return structCorrect;
     }
 
@@ -95,9 +100,7 @@ public class SourceCheck
 
         return new string(_fileNameChars);
     }
-
     public bool CheckFilesStructure => CheckFilesStruct();
-
     public SourceCheck(string path)
     {
         _path = path;

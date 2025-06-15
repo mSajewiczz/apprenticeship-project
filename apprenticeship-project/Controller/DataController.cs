@@ -13,11 +13,9 @@ public class DataController
         var source = new SourceCheck(@path);
         var lines = new List<string>();
         var linesModel = new List<LineModel>();
-        var linesModelAll = new List<LineModel>();
         var checkFileStruct = source.CheckFilesStructure;
         var fileContent = source.FileContent;
         var groups = source.Groups;
-
         var group = "";
         var counter = 0;
 
@@ -29,7 +27,7 @@ public class DataController
         Console.Write("Option: ");
         var option = Console.ReadLine();
         Console.WriteLine("----------------------------------------------------------------------------");
-        
+
         if (option == "4")
         {
             foreach (var line in fileContent)
@@ -37,7 +35,7 @@ public class DataController
                 if (counter > 0) lines.Add(line);
                 counter++;
             }
-            
+
             for (var i = 0; i < lines.Count; i++)
             {
                 var line = lines[i];
@@ -45,10 +43,12 @@ public class DataController
 
                 linesModel.Add(lineModel);
             }
-            
+
             GetValueOfFile(linesModel);
             return;
-        } else if (option == "5")
+        }
+
+        if (option == "5")
         {
             Console.WriteLine("Bye.");
             Console.WriteLine("----------------------------------------------------------------------------");
@@ -63,18 +63,14 @@ public class DataController
         Console.WriteLine("----------------------------------------------------------------------------");
 
         foreach (var groupItem in groups)
-        {
             if (groupItem == group)
-            {
                 groupCheck = true;
-            }
-        }
 
         if (!groupCheck)
         {
             Console.WriteLine("Error. Unknown group.");
+            return;
         }
-        
         
         for (var i = 0; i < fileContent.Count; i++)
         {
@@ -87,7 +83,6 @@ public class DataController
         {
             var line = lines[i];
             var lineModel = new LineModel(line);
-
             linesModel.Add(lineModel);
         }
 
@@ -112,18 +107,14 @@ public class DataController
     private void GetQuantity(List<LineModel> lines, string group)
     {
         var result = 0.0;
-
         foreach (var line in lines) result += line.Quantity;
-
         Console.WriteLine("Group: " + group + ", quantity: " + result);
     }
 
     private void GetValue(List<LineModel> lines, string group)
     {
         var result = 0.0;
-
         foreach (var line in lines) result += line.Value;
-
         Console.WriteLine("Group: " + group + ", value: " + result);
     }
 
@@ -135,7 +126,6 @@ public class DataController
         for (var i = 0; i < lines.Count; i++)
         {
             if (i == 0) maxDate = lines[i].Date;
-
             if (maxDate < lines[i].Date)
                 maxDate = lines[i].Date;
             else
@@ -151,7 +141,6 @@ public class DataController
     {
         var result = 0.0;
         foreach (var line in lines) result += line.Value;
-
         Console.WriteLine("Value for whole file: " + Math.Round(result, 2));
     }
 }

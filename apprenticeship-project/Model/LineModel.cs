@@ -2,11 +2,9 @@
 
 public class LineModel
 {
-    private string _group;
     private DateTime _date;
     private double _quantity;
     private double _value;
-    public string Group => _group;
     public DateTime Date => _date;
     public double Quantity => _quantity;
     public double Value => _value;
@@ -30,10 +28,6 @@ public class LineModel
             {
                 date = item;
             }
-            else if (counter == 4)
-            {
-                group = item;
-            }
             else if (counter == 5)
             {
                 var correctItem = item.Replace('.', ',');
@@ -43,7 +37,6 @@ public class LineModel
             counter++;
         }
 
-        _group = group;
         _date = DateTime.Parse(date);
         _quantity = double.Parse(quantity);
         _value = double.Parse(value);
