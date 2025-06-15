@@ -63,6 +63,13 @@ public class SourceCheck
                 }
             }
 
+            //START YOUR WORK TOMORROW HERE!
+            // for (var j = 0; j < size; j++)
+            // {
+            //     var splitedLine = line.Split(';');
+            //     splitedLine[4] 
+            // }
+
             charGroup = new char[size];
             var tmp2 = 0;
 
